@@ -316,7 +316,7 @@
         </div>
 
         <div id="ai-tools-widget"></div>
-        <div class="no-results" id="noResults">
+        <div class="no-results hidden" id="noResults">
             Ingen verktøy matchet søket. Prøv et annet søkeord eller filter.
         </div>
 
@@ -348,7 +348,10 @@
             } catch (e) {
                 aiTools = FALLBACK_TOOLS;
             }
-            if (!Array.isArray(aiTools)) aiTools = Object.values(aiTools).flat().filter(Boolean) || FALLBACK_TOOLS;
+            if (!Array.isArray(aiTools)) {
+                const extracted = Object.values(aiTools).flat().filter(Boolean);
+                aiTools = extracted.length ? extracted : FALLBACK_TOOLS;
+            }
             renderTools();
         }
 
@@ -379,17 +382,17 @@
                 const promptId = `prompt-${i}-${Date.now()}`;
                 card.innerHTML = `
                     <div class="card-header">
-                        <span class="badge ${tool.category}">${tool.category}</span>
-                        ${tool.commission ? `<span class="commission-tag">${tool.commission}</span>` : ''}
+                        <span class="badge ${escapeHtml(tool.category)}">${escapeHtml(tool.category)}</span>
+                        ${tool.commission ? `<span class="commission-tag">${escapeHtml(tool.commission)}</span>` : ''}
                     </div>
-                    <h3>${tool.name}</h3>
-                    <p class="desc">${tool.desc}</p>
+                    <h3>${escapeHtml(tool.name)}</h3>
+                    <p class="desc">${escapeHtml(tool.desc)}</p>
                     <div class="prompt-box">
                         <strong>Prøv denne prompten</strong>
                         <code id="${promptId}">${escapeHtml(tool.prompt)}</code>
                         <button class="copy-btn" onclick="copyPrompt('${promptId}', this)">Kopier prompt</button>
                     </div>
-                    <a href="${tool.link}" target="_blank" rel="noopener" class="cta-link">Prøv ${tool.name} →</a>
+                    <a href="${encodeURI(tool.link)}" target="_blank" rel="noopener" class="cta-link">Prøv ${escapeHtml(tool.name)} →</a>
                 `;
                 container.appendChild(card);
             });
@@ -403,14 +406,33 @@
 
         function copyPrompt(id, btn) {
             const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text).then(() => {
+            function onSuccess() {
                 btn.textContent = 'Kopiert!';
                 btn.classList.add('copied');
                 setTimeout(() => {
                     btn.textContent = 'Kopier prompt';
                     btn.classList.remove('copied');
                 }, 2000);
-            });
+            }
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(onSuccess).catch(() => {
+                    fallbackCopy(text) && onSuccess();
+                });
+            } else {
+                fallbackCopy(text) && onSuccess();
+            }
+        }
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            const ok = document.execCommand('copy');
+            document.body.removeChild(ta);
+            return ok;
         }
 
         document.querySelectorAll('.filter-btn').forEach(btn => {
