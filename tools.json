@@ -1,0 +1,24 @@
+{
+  "tools": [
+    {"name": "Jasper", "category": "tekst", "desc": "AI skriveassistent for markedsføring og blogg", "prompt": "Skriv en engasjerende produktbeskrivelse for en ergonomisk kontorstol ved bruk av 'Problem-Agitate-Solve'-rammeverket. Tone: Profesjonell, men varm.", "link": "#", "commission": "30% Fast"},
+    {"name": "Copy.ai", "category": "tekst", "desc": "Generer salgstekster og annonser", "prompt": "Lag en AIDA-basert Facebook-annonse for et nytt treningsprogram.", "link": "#", "commission": "45% (1. år)"},
+    {"name": "Writesonic", "category": "tekst", "desc": "SEO og innholdsproduksjon", "prompt": "Lag en hel bloggpost på 2 minutter om beste AI-verktøy for 2026.", "link": "#", "commission": "30% Livslang"},
+    {"name": "Leonardo.ai", "category": "bilde", "desc": "Fotorealistisk AI-kunst og spill-assets", "prompt": "Cinematic portrait of a futuristic Viking, cybernetic eye, neon warpaint, hyper-detailed, 8k, bokeh background.", "link": "#", "commission": "60% første mnd"},
+    {"name": "Midjourney", "category": "bilde", "desc": "AI bildegenerator", "prompt": "Cyberpunk Norway, 8k, neon lights, rainy street, cinematic lighting.", "link": "#", "commission": "Varierer"},
+    {"name": "Synthesia", "category": "video", "desc": "AI-video med avatarer uten kamera", "prompt": "Velkommen til vår plattform. I dag skal jeg vise deg hvordan du automatiserer arbeidsflyten din på 5 minutter.", "link": "#", "commission": "20-25% Fast"},
+    {"name": "HeyGen", "category": "video", "desc": "AI video-avatarer og dubbing", "prompt": "Create a video presenter explaining AI trends for 2026.", "link": "#", "commission": "30%"},
+    {"name": "Suno AI", "category": "lyd", "desc": "Lag radio-klare sanger fra tekst", "prompt": "En 80-talls synthwave låt om kunstig intelligens, nostalgisk, raskt tempo, mannlig vokal.", "link": "#", "commission": "Varierer"},
+    {"name": "ElevenLabs", "category": "lyd", "desc": "Verdens mest realistiske AI-stemmer", "prompt": "Klon din egen stemme eller generer tekst-til-tale på 29 språk med ekstrem realisme.", "link": "#", "commission": "30%"},
+    {"name": "Blackbox AI", "category": "kode", "desc": "Lynrask koding og feilsøking", "prompt": "Hvordan lager jeg en responsiv navigasjonsmeny i React med Tailwind CSS?", "link": "#", "commission": "Varierer"},
+    {"name": "GitHub Copilot", "category": "kode", "desc": "AI kodeassistent", "prompt": "Create a Python web scraper with BeautifulSoup.", "link": "#", "commission": "Varierer"},
+    {"name": "Mixo", "category": "web", "desc": "Landingsside på under 60 sekunder", "prompt": "En app som finner de beste turstiene for hunder i Norge.", "link": "#", "commission": "50% Engangs"},
+    {"name": "10Web", "category": "web", "desc": "AI nettstedsbygger", "prompt": "Bygg en profesjonell porteføljeside for en fotograf.", "link": "#", "commission": "30% 1. år"},
+    {"name": "Julius AI", "category": "analyse", "desc": "Din personlige dataanalytiker", "prompt": "Analyser dette datasettet og finn de 3 viktigste trendene for 2026.", "link": "#", "commission": "Varierer"},
+    {"name": "Surfer SEO", "category": "seo", "desc": "Automatisk SEO-analyse", "prompt": "Optimaliser denne artikkelen for søkeordet 'beste AI-verktøy'.", "link": "#", "commission": "30%"},
+    {"name": "Murf AI", "category": "lyd", "desc": "Tekst-til-stemme for video", "prompt": "Narrate a documentary intro about the future of AI.", "link": "#", "commission": "20% 24 mnd"},
+    {"name": "Runway ML", "category": "video", "desc": "AI videoredigering", "prompt": "Transform this image into a 5-second cinematic video.", "link": "#", "commission": "Varierer"},
+    {"name": "Canva Magic", "category": "bilde", "desc": "AI design i Canva", "prompt": "Lag en Instagram-post for en kaffebar med varm, hyggelig stemning.", "link": "#", "commission": "Varierer"},
+    {"name": "Notion AI", "category": "tekst", "desc": "Produktivitet og dokumentasjon", "prompt": "Oppsummer dette møtereferatet og lag en action-liste.", "link": "#", "commission": "Varierer"},
+    {"name": "Zapier AI", "category": "automasjon", "desc": "Automatiser arbeidsflyt", "prompt": "Koble Slack til Google Sheets - når noen svarer i Slack, legg til rad i Sheets.", "link": "#", "commission": "20%"}
+  ]
+}
