@@ -1,433 +1,1580 @@
 <!DOCTYPE html>
-<html lang="no">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beste AI Verktøy 2026: Komplett Guide med Prompts & Kode</title>
-    <meta name="description" content="Finn de beste AI-verktøyene for bilde, tekst, kode og musikk. Kopier ferdige prompts og se hvordan du sparer tid med kunstig intelligens. Oppdatert for 2026.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --accent: #a855f7;
-            --dark: #0a0e17;
-            --card-bg: #131a2b;
-            --card-border: #1e293b;
-            --text: #f1f5f9;
-            --text-muted: #94a3b8;
-        }
-        * { box-sizing: border-box; }
-        body {
-            font-family: 'Outfit', sans-serif;
-            background: var(--dark);
-            color: var(--text);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            background-image: 
-                linear-gradient(rgba(0,210,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0,210,255,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-        .disclaimer-banner {
-            background: rgba(168, 85, 247, 0.15);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 8px;
-            padding: 12px 20px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-        .disclaimer-banner strong { color: var(--accent); }
-        header {
-            text-align: center;
-            padding: 50px 0 40px;
-        }
-        h1 {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 12px;
-            animation: gradient 8s ease infinite;
-        }
-        @keyframes gradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        header p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .search-filter-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            justify-content: center;
-            margin-bottom: 40px;
-            align-items: center;
-        }
-        .search-box {
-            flex: 1;
-            min-width: 200px;
-            max-width: 400px;
-            position: relative;
-        }
-        .search-box input {
-            width: 100%;
-            padding: 12px 16px 12px 44px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            color: var(--text);
-            font-size: 1rem;
-            font-family: inherit;
-            transition: border-color 0.2s;
-        }
-        .search-box input::placeholder { color: var(--text-muted); }
-        .search-box input:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-        .search-box::before {
-            content: "🔍";
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.1rem;
-        }
-        .filter-menu {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-        }
-        .filter-btn {
-            background: var(--card-bg);
-            color: var(--text-muted);
-            border: 1px solid var(--card-border);
-            padding: 10px 18px;
-            border-radius: 24px;
-            cursor: pointer;
-            font-family: inherit;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.2s;
-        }
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--primary);
-            color: #000;
-            border-color: var(--primary);
-        }
-        #ai-tools-widget {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-        }
-        .ai-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.3s ease;
-        }
-        .ai-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0, 210, 255, 0.1);
-        }
-        .ai-card.hidden { display: none; }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
-        }
-        .badge {
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .badge.tekst { background: #3b82f6; color: #fff; }
-        .badge.bilde { background: #a855f7; color: #fff; }
-        .badge.video { background: #ec4899; color: #fff; }
-        .badge.lyd { background: #f43f5e; color: #fff; }
-        .badge.kode { background: #10b981; color: #fff; }
-        .badge.web { background: #f59e0b; color: #000; }
-        .badge.seo { background: #06b6d4; color: #000; }
-        .badge.analyse { background: #8b5cf6; color: #fff; }
-        .badge.automasjon { background: #6366f1; color: #fff; }
-        .commission-tag {
-            font-size: 0.7rem;
-            color: var(--primary);
-            background: rgba(0, 210, 255, 0.15);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        .ai-card h3 {
-            margin: 0 0 8px;
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-        .ai-card .desc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 16px;
-            flex-grow: 1;
-        }
-        .prompt-box {
-            background: #0a0e17;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 16px;
-            border-left: 4px solid var(--primary);
-        }
-        .prompt-box strong {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-        }
-        .prompt-box code {
-            display: block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: #82aaff;
-            margin-top: 8px;
-            word-break: break-word;
-            line-height: 1.5;
-        }
-        .copy-btn {
-            background: var(--primary);
-            color: #000;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-top: 10px;
-            font-family: inherit;
-            transition: opacity 0.2s;
-        }
-        .copy-btn:hover { opacity: 0.9; }
-        .copy-btn.copied {
-            background: #10b981;
-            color: #fff;
-        }
-        .ai-card .cta-link {
-            display: block;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-decoration: none;
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 600;
-            margin-top: auto;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-        .ai-card .cta-link:hover {
-            opacity: 0.95;
-            transform: scale(1.02);
-        }
-        .no-results {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-        }
-        .no-results.hidden { display: none; }
-        .newsletter-cta {
-            margin-top: 60px;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(0,210,255,0.1), rgba(168,85,247,0.1));
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            text-align: center;
-        }
-        .newsletter-cta h3 { margin-bottom: 8px; }
-        .newsletter-cta p { color: var(--text-muted); margin-bottom: 20px; }
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NEURAL VOID | AI Command Center</title>
+  <meta name="description" content="Neural Void — A high-tech AI command interface. 20 specialized domains. 160+ integrated tools. Powered by Gemini, Veo, and Claude.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+  /* =========================================================
+     NEURAL VOID — DESIGN SYSTEM
+     ========================================================= */
+  :root {
+    --void-black:   #030308;
+    --cyber-dark:   #07070f;
+    --panel-dark:   #0c0c1a;
+    --steel-dark:   #1a2030;
+
+    --cyan:         #00d4ff;
+    --cyan-dim:     rgba(0,212,255,.15);
+    --cyan-glow:    rgba(0,212,255,.35);
+    --green:        #00ff88;
+    --violet:       #8800ff;
+    --red-hot:      #ff2244;
+    --gold:         #ffaa00;
+    --titanium:     #7a8a9a;
+    --chrome:       #c8d8e8;
+    --chrome-mid:   #8899aa;
+
+    --text:         #e4ecf4;
+    --text-dim:     #5a6a7a;
+    --text-code:    var(--cyan);
+
+    --glass:        rgba(0,212,255,.03);
+    --glass-border: rgba(0,212,255,.12);
+
+    --portal-sz:    440px;
+    --r:            8px;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: var(--void-black);
+    color: var(--text);
+    font-family: 'Space Grotesk', sans-serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── ANIMATED BACKGROUND ── */
+  #neural-canvas {
+    position: fixed; inset: 0;
+    z-index: 0;
+    opacity: .35;
+  }
+
+  .scanlines {
+    position: fixed; inset: 0;
+    z-index: 1;
+    background: repeating-linear-gradient(
+      0deg, transparent, transparent 2px,
+      rgba(0,212,255,.012) 2px, rgba(0,212,255,.012) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* ── CONTENT WRAPPER ── */
+  .site { position: relative; z-index: 10; }
+
+  /* ── HUD HEADER ── */
+  header {
+    position: fixed; top:0; left:0; right:0; z-index:200;
+    height: 60px;
+    padding: 0 4%;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(3,3,8,.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+  }
+
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: var(--cyan);
+    text-shadow: 0 0 18px var(--cyan-glow);
+  }
+  .logo em { color: var(--green); font-style: normal; }
+
+  .sys-indicator {
+    display: flex; align-items: center; gap:.5rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .6rem; letter-spacing: 2px;
+    color: var(--green);
+  }
+  .pulse-dot {
+    width:6px; height:6px; border-radius:50%;
+    background: var(--green);
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse-dot {
+    0%,100% { opacity:1; box-shadow:0 0 6px var(--green); }
+    50%      { opacity:.3; box-shadow:none; }
+  }
+
+  nav { display:flex; gap:.3rem; }
+  nav a {
+    font-family:'JetBrains Mono',monospace;
+    font-size:.65rem; letter-spacing:2px;
+    color: var(--text-dim);
+    text-decoration:none;
+    padding:.35rem .8rem;
+    border:1px solid transparent;
+    text-transform: uppercase;
+    transition: all .25s;
+  }
+  nav a:hover { color:var(--cyan); border-color:rgba(0,212,255,.3); background:rgba(0,212,255,.05); }
+  .nav-cta { color:var(--cyan)!important; border-color:rgba(0,212,255,.4)!important; background:rgba(0,212,255,.06)!important; }
+
+  .header-meta {
+    font-family:'JetBrains Mono',monospace;
+    font-size:.6rem; color:var(--text-dim);
+    text-align:right; line-height:1.6;
+  }
+  .header-meta span { color:var(--cyan); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 3rem;
+    padding: 80px 6% 3rem;
+  }
+
+  .hero-text { display:flex; flex-direction:column; gap:1.6rem; }
+
+  .badge {
+    display: inline-flex; align-items:center; gap:.5rem;
+    padding:.4rem 1rem; border-radius:100px;
+    border:1px solid rgba(0,212,255,.25);
+    background: rgba(0,212,255,.06);
+    font-family:'JetBrains Mono',monospace;
+    font-size:.6rem; letter-spacing:3px; color:var(--cyan);
+    width: fit-content;
+  }
+  .badge::before {
+    content:''; width:5px; height:5px; border-radius:50%;
+    background:var(--green);
+    animation: pulse-dot 1.6s ease-in-out infinite;
+  }
+
+  .hero-title {
+    font-family:'Orbitron',sans-serif;
+    font-size: clamp(2.8rem,5vw,5rem);
+    font-weight:900; line-height:1; letter-spacing:2px;
+  }
+  .t1 { display:block; color:var(--chrome); }
+  .t2 { display:block; color:var(--cyan); text-shadow:0 0 50px rgba(0,212,255,.4); }
+
+  .hero-sub {
+    font-family:'JetBrains Mono',monospace;
+    font-size:.8rem; color:var(--text-dim); line-height:1.9; letter-spacing:.5px;
+    max-width:480px;
+  }
+  .hero-sub .hl { color:var(--green); }
+
+  .metrics { display:flex; gap:2.5rem; }
+  .metric-val {
+    font-family:'Orbitron',sans-serif;
+    font-size:2rem; font-weight:900;
+    color:var(--cyan); line-height:1; display:block;
+  }
+  .metric-label {
+    font-family:'JetBrains Mono',monospace;
+    font-size:.55rem; letter-spacing:2px;
+    color:var(--text-dim); text-transform:uppercase; margin-top:.25rem;
+  }
+
+  .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; }
+
+  .btn-primary {
+    padding:.9rem 2rem;
+    background: linear-gradient(135deg,rgba(0,212,255,.18),rgba(0,85,255,.18));
+    border:1px solid var(--cyan); color:var(--cyan);
+    font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:3px;
+    cursor:pointer; text-transform:uppercase;
+    clip-path: polygon(0 0,calc(100% - 10px) 0,100% 10px,100% 100%,10px 100%,0 calc(100% - 10px));
+    transition: all .3s; position:relative; overflow:hidden;
+  }
+  .btn-primary::after {
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(90deg,transparent,rgba(0,212,255,.2),transparent);
+    transform:translateX(-100%); transition:transform .5s;
+  }
+  .btn-primary:hover::after { transform:translateX(100%); }
+  .btn-primary:hover { box-shadow:0 0 30px var(--cyan-glow); transform:translateY(-2px); }
+
+  .btn-sec {
+    padding:.9rem 2rem;
+    background:transparent; border:1px solid var(--steel-dark); color:var(--text-dim);
+    font-family:'JetBrains Mono',monospace; font-size:.7rem; letter-spacing:3px;
+    cursor:pointer; text-transform:uppercase; transition:all .3s;
+  }
+  .btn-sec:hover { border-color:var(--titanium); color:var(--text); }
+
+  /* ── PORTAL SECTION ── */
+  .portal-wrap {
+    display:flex; justify-content:center; align-items:center; position:relative;
+  }
+
+  .portal-outer {
+    position:relative;
+    width:var(--portal-sz); height:var(--portal-sz);
+    display:flex; justify-content:center; align-items:center;
+  }
+
+  /* rotating outer decorative rings */
+  .ring-spin-1, .ring-spin-2 {
+    position:absolute; border-radius:50%;
+    pointer-events:none;
+  }
+  .ring-spin-1 {
+    width:100%; height:100%;
+    border:1.5px dashed rgba(0,212,255,.2);
+    animation: spin 20s linear infinite;
+  }
+  .ring-spin-2 {
+    width:93%; height:93%;
+    border:1px dashed rgba(0,212,255,.1);
+    animation: spin 14s linear infinite reverse;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* HUD corner brackets */
+  .hud-corners { position:absolute; width:100%; height:100%; pointer-events:none; }
+  .hc {
+    position:absolute; width:22px; height:22px;
+    border-color:var(--cyan); border-style:solid; opacity:.5;
+  }
+  .hc-tl { top:4%; left:4%; border-width:2px 0 0 2px; }
+  .hc-tr { top:4%; right:4%; border-width:2px 2px 0 0; }
+  .hc-bl { bottom:4%; left:4%; border-width:0 0 2px 2px; }
+  .hc-br { bottom:4%; right:4%; border-width:0 2px 2px 0; }
+
+  /* the main portal SVG */
+  .portal-svg {
+    width:90%; height:90%;
+    filter: drop-shadow(0 0 40px rgba(0,212,255,.2)) drop-shadow(0 0 80px rgba(136,0,255,.12));
+  }
+
+  /* scan line across portal */
+  .portal-scan {
+    position:absolute; left:5%; width:90%; height:1px;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+    top:10%; opacity:0;
+    animation: scan-v 4s ease-in-out infinite;
+    pointer-events:none;
+  }
+  @keyframes scan-v {
+    0%   { top:10%; opacity:0; }
+    15%  { opacity:.5; }
+    85%  { opacity:.5; }
+    100% { top:90%; opacity:0; }
+  }
+
+  /* floating data labels */
+  .portal-label {
+    position:absolute;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.55rem; letter-spacing:2px; color:var(--cyan); opacity:.6;
+  }
+  .pl-top    { top:-28px; width:100%; text-align:center; }
+  .pl-bot    { bottom:-28px; width:100%; text-align:center; }
+  .pl-left   { left:-95px; top:50%; transform:translateY(-50%) rotate(-90deg); white-space:nowrap; }
+  .pl-right  { right:-95px; top:50%; transform:translateY(-50%) rotate(90deg); white-space:nowrap; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    display:grid; grid-template-columns:repeat(4,1fr);
+    gap:1px; background:rgba(0,212,255,.04);
+    border-top:1px solid var(--glass-border);
+    border-bottom:1px solid var(--glass-border);
+  }
+  .stat-block {
+    padding:2.2rem 1.5rem; text-align:center;
+    background:var(--void-black); transition:background .3s;
+  }
+  .stat-block:hover { background:rgba(0,212,255,.03); }
+  .stat-num {
+    font-family:'Orbitron',sans-serif;
+    font-size:2.4rem; font-weight:900;
+    color:var(--cyan); line-height:1; display:block;
+  }
+  .stat-unit { font-size:1.2rem; color:var(--green); }
+  .stat-lbl {
+    font-family:'JetBrains Mono',monospace;
+    font-size:.6rem; letter-spacing:3px; color:var(--text-dim);
+    text-transform:uppercase; margin-top:.6rem; display:block;
+  }
+
+  /* ── DOMAINS SECTION ── */
+  .domains-section { padding:6rem 4%; }
+
+  .section-header { text-align:center; margin-bottom:4rem; }
+  .section-eyebrow {
+    font-family:'JetBrains Mono',monospace;
+    font-size:.6rem; letter-spacing:5px; color:var(--cyan);
+    text-transform:uppercase; display:block; margin-bottom:1rem;
+  }
+  .section-title {
+    font-family:'Orbitron',sans-serif;
+    font-size:clamp(1.4rem,3vw,2.4rem); font-weight:700;
+    color:var(--chrome); letter-spacing:3px;
+  }
+
+  .domains-grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+    gap:1px;
+    background:rgba(0,212,255,.04);
+  }
+
+  .domain-card {
+    background:var(--void-black); padding:1.8rem;
+    cursor:pointer; transition:background .25s;
+    position:relative; overflow:hidden;
+    border:1px solid transparent;
+  }
+  .domain-card::before {
+    content:''; position:absolute;
+    top:0; left:0; width:3px; height:0;
+    background:var(--dc, var(--cyan));
+    transition:height .3s;
+  }
+  .domain-card:hover::before, .domain-card.open::before { height:100%; }
+  .domain-card:hover  { background:rgba(0,212,255,.025); }
+  .domain-card.open   { background:rgba(0,212,255,.04); border-color:rgba(0,212,255,.12); }
+
+  .d-head { display:flex; align-items:flex-start; gap:1rem; margin-bottom:.8rem; }
+  .d-icon { font-size:1.8rem; flex-shrink:0; line-height:1; }
+  .d-meta { flex:1; }
+  .d-num {
+    font-family:'JetBrains Mono',monospace; font-size:.55rem;
+    color:var(--text-dim); letter-spacing:2px; display:block; margin-bottom:.25rem;
+  }
+  .d-name { font-size:1rem; font-weight:700; color:var(--text); line-height:1.2; }
+  .d-count {
+    font-family:'JetBrains Mono',monospace; font-size:.6rem;
+    color:var(--dc,var(--cyan)); margin-top:.3rem; display:block;
+  }
+
+  .d-tools {
+    max-height:0; overflow:hidden; opacity:0;
+    transition:max-height .4s ease, opacity .3s;
+    display:flex; flex-direction:column; gap:.35rem;
+  }
+  .domain-card.open .d-tools { max-height:600px; opacity:1; }
+
+  .tool-row {
+    display:flex; align-items:center; gap:.6rem;
+    padding:.45rem .65rem;
+    background:rgba(255,255,255,.02);
+    border:1px solid rgba(255,255,255,.04); border-radius:4px;
+    transition:all .2s; cursor:pointer;
+  }
+  .tool-row:hover { background:rgba(0,212,255,.06); border-color:rgba(0,212,255,.18); transform:translateX(4px); }
+  .tool-dot { width:5px; height:5px; border-radius:50%; background:var(--dc,var(--cyan)); flex-shrink:0; }
+  .tool-name {
+    font-family:'JetBrains Mono',monospace; font-size:.7rem;
+    color:var(--text-dim); flex:1; transition:color .2s;
+  }
+  .tool-row:hover .tool-name { color:var(--text); }
+  .tool-type {
+    font-family:'JetBrains Mono',monospace; font-size:.52rem;
+    color:var(--text-dim); opacity:.4; letter-spacing:1px;
+  }
+
+  .d-toggle {
+    margin-top:.9rem; display:flex; align-items:center; gap:.4rem;
+    font-family:'JetBrains Mono',monospace; font-size:.58rem;
+    color:var(--text-dim); letter-spacing:2px; transition:color .25s;
+  }
+  .domain-card:hover .d-toggle { color:var(--dc,var(--cyan)); }
+  .d-arrow { transition:transform .3s; display:inline-block; }
+  .domain-card.open .d-arrow { transform:rotate(180deg); }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top:1px solid var(--glass-border);
+    padding:2.5rem 4%;
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.6rem; color:var(--text-dim);
+  }
+  .footer-logo { font-family:'Orbitron',sans-serif; font-size:.75rem; color:var(--cyan); letter-spacing:4px; opacity:.6; }
+
+  /* ── GLITCH EFFECT ── */
+  .glitch { position:relative; }
+  .glitch::before, .glitch::after {
+    content:attr(data-text); position:absolute; top:0; left:0; width:100%;
+  }
+  .glitch::before {
+    color:var(--red-hot); animation:glitch-a 6s infinite;
+    clip-path:polygon(0 20%,100% 20%,100% 32%,0 32%);
+  }
+  .glitch::after {
+    color:var(--cyan); animation:glitch-b 6s infinite;
+    clip-path:polygon(0 60%,100% 60%,100% 72%,0 72%);
+  }
+  @keyframes glitch-a {
+    0%,88%,100% { transform:translateX(0); opacity:0; }
+    89% { transform:translateX(-4px); opacity:.9; }
+    91% { transform:translateX(4px);  opacity:.6; }
+    93% { transform:translateX(0);    opacity:0; }
+  }
+  @keyframes glitch-b {
+    0%,91%,100% { transform:translateX(0); opacity:0; }
+    92% { transform:translateX(5px); opacity:.9; }
+    94% { transform:translateX(-3px); opacity:.5; }
+    96% { transform:translateX(0); opacity:0; }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media(max-width:960px) {
+    .hero { grid-template-columns:1fr; text-align:center; padding-top:90px; }
+    .hero-text { align-items:center; }
+    .metrics { justify-content:center; }
+    .portal-wrap { order:-1; }
+    :root { --portal-sz:320px; }
+    .stats-bar { grid-template-columns:repeat(2,1fr); }
+    header .header-meta { display:none; }
+    nav { display:none; }
+    .pl-left,.pl-right { display:none; }
+  }
+  @media(max-width:480px) {
+    .domains-grid { grid-template-columns:1fr; }
+    .stats-bar { grid-template-columns:1fr 1fr; }
+  }
+  </style>
 </head>
 <body>
-    <div class="bg-grid"></div>
-    <div class="container">
-        <p class="disclaimer-banner">
-            <strong>Reklame ·</strong> Denne siden inneholder affiliate-lenker. Vi kan motta en kommisjon hvis du kjøper via våre lenker – uten ekstra kostnad for deg.
-        </p>
 
-        <header>
-            <h1>AI Super-Portal 2026</h1>
-            <p>Utforsk de beste AI-verktøyene. Kopier prompts, sammenlign og finn verktøyet som passer deg.</p>
-        </header>
+<!-- ── NEURAL NETWORK CANVAS ── -->
+<canvas id="neural-canvas"></canvas>
+<div class="scanlines"></div>
 
-        <div class="search-filter-bar">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Søk etter verktøy eller prompt..." autocomplete="off">
-            </div>
-            <div class="filter-menu">
-                <button class="filter-btn active" data-filter="all">Alle</button>
-                <button class="filter-btn" data-filter="tekst">Tekst</button>
-                <button class="filter-btn" data-filter="bilde">Bilde</button>
-                <button class="filter-btn" data-filter="video">Video</button>
-                <button class="filter-btn" data-filter="lyd">Lyd & Musikk</button>
-                <button class="filter-btn" data-filter="kode">Koding</button>
-                <button class="filter-btn" data-filter="web">Web</button>
-                <button class="filter-btn" data-filter="seo">SEO</button>
-                <button class="filter-btn" data-filter="analyse">Analyse</button>
-                <button class="filter-btn" data-filter="automasjon">Automasjon</button>
-            </div>
+<div class="site">
+
+  <!-- ── HEADER ── -->
+  <header>
+    <div class="logo">NEURAL<em>.</em>VOID</div>
+    <div class="sys-indicator"><div class="pulse-dot"></div>ALL SYSTEMS ONLINE</div>
+    <nav>
+      <a href="#domains">DOMAINS</a>
+      <a href="#domains">TOOLS</a>
+      <a href="#" class="nav-cta">ACCESS</a>
+    </nav>
+    <div class="header-meta">
+      UPTIME: <span id="live-clock">00:00:00</span><br>
+      NODE: <span>NV-314</span> // <span style="color:var(--green)">ACTIVE</span>
+    </div>
+  </header>
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+
+    <!-- LEFT: TEXT -->
+    <div class="hero-text">
+      <div class="badge">NEURAL COMMAND CENTER // v3.14.159</div>
+
+      <h1 class="hero-title glitch" data-text="NEURAL VOID">
+        <span class="t1">NEURAL</span>
+        <span class="t2">VOID</span>
+      </h1>
+
+      <p class="hero-sub">
+        High-frequency AI command interface.<br>
+        <span class="hl">20 specialized domains · 160+ integrated tools.</span><br>
+        Neural pathways active. Entity breach detected.<br>
+        <span class="hl">// Powered by Gemini · Veo · Claude · GPT-4o</span>
+      </p>
+
+      <div class="metrics">
+        <div>
+          <span class="metric-val" data-count="20">0</span>
+          <div class="metric-label">AI DOMAINS</div>
         </div>
-
-        <div id="ai-tools-widget"></div>
-        <div class="no-results" id="noResults">
-            Ingen verktøy matchet søket. Prøv et annet søkeord eller filter.
+        <div>
+          <span class="metric-val" data-count="160">0</span>
+          <div class="metric-label">TOOLS ACTIVE</div>
         </div>
-
-        <div class="newsletter-cta">
-            <h3>Få ukens beste AI-prompts i innboksen</h3>
-            <p>Vi sender kun det som er verdt å vite – ingen spam.</p>
-            <input type="email" placeholder="Din e-post" style="padding:12px 20px; border-radius:8px; border:1px solid var(--card-border); background:var(--card-bg); color:var(--text); margin-right:8px; min-width:220px;">
-            <button class="copy-btn" style="margin-top:0;">Meld meg på</button>
+        <div>
+          <span class="metric-val">∞</span>
+          <div class="metric-label">NEURAL COMPUTE</div>
         </div>
+      </div>
 
-        <footer>
-            Beste AI Verktøy 2026 · Oppdatert mars 2026 · Inneholder affiliate-lenker
-        </footer>
+      <div class="hero-btns">
+        <button class="btn-primary" id="init-btn">⬡ INITIALIZE SYSTEM</button>
+        <button class="btn-sec" onclick="document.getElementById('domains').scrollIntoView({behavior:'smooth'})">VIEW DOMAINS ▼</button>
+      </div>
     </div>
 
-    <script>
-        let aiTools = [];
-        let currentFilter = 'all';
-        let searchQuery = '';
+    <!-- RIGHT: THE PORTAL DOOR -->
+    <div class="portal-wrap">
+      <div class="portal-outer" id="portal-node">
+        <div class="ring-spin-1"></div>
+        <div class="ring-spin-2"></div>
 
-        const FALLBACK_TOOLS = [{"name":"Jasper","category":"tekst","desc":"AI skriveassistent","prompt":"Write a blog post about AI.","link":"#","commission":"30%"},{"name":"Leonardo.ai","category":"bilde","desc":"AI bildegenerator","prompt":"Cyberpunk city, 8k, neon.","link":"#","commission":"60%"}];
-        async function loadTools() {
-            try {
-                const res = await fetch('tools.json');
-                if (res.ok) {
-                    const data = await res.json();
-                    aiTools = data.tools || data;
-                } else throw new Error('Not OK');
-            } catch (e) {
-                aiTools = FALLBACK_TOOLS;
-            }
-            if (!Array.isArray(aiTools)) aiTools = Object.values(aiTools).flat().filter(Boolean) || FALLBACK_TOOLS;
-            renderTools();
+        <div class="hud-corners">
+          <div class="hc hc-tl"></div>
+          <div class="hc hc-tr"></div>
+          <div class="hc hc-bl"></div>
+          <div class="hc hc-br"></div>
+        </div>
+
+        <!-- ===================================================
+             THE PORTAL DOOR — TERMINATOR BREACH SVG
+             Half endoskeleton emerging through a blown blast door.
+             All drawn with pure SVG paths and filters.
+             =================================================== -->
+        <svg class="portal-svg" viewBox="0 0 500 500" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Red eye glow -->
+            <filter id="eye-glow" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur stdDeviation="5" result="b1"/>
+              <feGaussianBlur stdDeviation="10" result="b2"/>
+              <feMerge><feMergeNode in="b2"/><feMergeNode in="b1"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+
+            <!-- Blue/cyan electric glow -->
+            <filter id="elec-glow" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="3" result="b"/>
+              <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+
+            <!-- Soft metal shadow -->
+            <filter id="metal-shadow">
+              <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity=".8"/>
+            </filter>
+
+            <!-- Portal inner glow -->
+            <radialGradient id="void-bg" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#0a0025"/>
+              <stop offset="50%"  stop-color="#060015"/>
+              <stop offset="100%" stop-color="#020008"/>
+            </radialGradient>
+
+            <!-- Chrome metal gradient (horizontal) -->
+            <linearGradient id="chrome-h" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%"   stop-color="#1e2a3a"/>
+              <stop offset="25%"  stop-color="#4a5a6a"/>
+              <stop offset="50%"  stop-color="#7a8a9a"/>
+              <stop offset="75%"  stop-color="#4a5a6a"/>
+              <stop offset="100%" stop-color="#1e2a3a"/>
+            </linearGradient>
+
+            <!-- Chrome metal gradient (vertical) -->
+            <linearGradient id="chrome-v" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#3a4a5a"/>
+              <stop offset="30%"  stop-color="#2a3a4a"/>
+              <stop offset="70%"  stop-color="#1a2030"/>
+              <stop offset="100%" stop-color="#0a1020"/>
+            </linearGradient>
+
+            <!-- Door metal gradient -->
+            <linearGradient id="door-metal" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%"   stop-color="#2a3545"/>
+              <stop offset="40%"  stop-color="#1a2535"/>
+              <stop offset="100%" stop-color="#0a1525"/>
+            </linearGradient>
+
+            <!-- Torn edge gradient (bright at tear, dark further) -->
+            <radialGradient id="tear-edge" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="#6a8090" stop-opacity="1"/>
+              <stop offset="100%" stop-color="#1a2535" stop-opacity="1"/>
+            </radialGradient>
+
+            <!-- Eye ambient red radial -->
+            <radialGradient id="eye-ambient" cx="50%" cy="50%" r="50%">
+              <stop offset="0%"   stop-color="rgba(255,30,0,.3)"/>
+              <stop offset="100%" stop-color="rgba(255,0,0,0)"/>
+            </radialGradient>
+
+            <!-- Chest plate gradient -->
+            <linearGradient id="chest-plate" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%"   stop-color="#2e3e50"/>
+              <stop offset="50%"  stop-color="#18283a"/>
+              <stop offset="100%" stop-color="#080e18"/>
+            </linearGradient>
+
+            <!-- clip for portal circle -->
+            <clipPath id="portal-clip">
+              <circle cx="250" cy="250" r="196"/>
+            </clipPath>
+
+            <!-- clip for robot (only show above a certain y = "half stuck") -->
+            <clipPath id="robot-clip">
+              <rect x="0" y="0" width="500" height="360"/>
+            </clipPath>
+          </defs>
+
+          <!-- ── PORTAL VOID BACKGROUND ── -->
+          <circle cx="250" cy="250" r="196" fill="url(#void-bg)"/>
+
+          <!-- ── ROTATING ENERGY RINGS (within portal) ── -->
+          <g clip-path="url(#portal-clip)">
+            <circle cx="250" cy="250" r="185" fill="none" stroke="rgba(0,212,255,.08)" stroke-width="1">
+              <animateTransform attributeName="transform" type="rotate" from="0 250 250" to="360 250 250" dur="25s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="250" cy="250" r="165" fill="none" stroke="rgba(136,0,255,.06)" stroke-width="1" stroke-dasharray="15 8">
+              <animateTransform attributeName="transform" type="rotate" from="360 250 250" to="0 250 250" dur="18s" repeatCount="indefinite"/>
+            </circle>
+            <!-- energy wisps -->
+            <path d="M 250 80 Q 280 120 250 160 Q 220 200 250 240" fill="none" stroke="rgba(0,212,255,.06)" stroke-width="2">
+              <animateTransform attributeName="transform" type="rotate" from="0 250 250" to="360 250 250" dur="12s" repeatCount="indefinite"/>
+            </path>
+            <path d="M 250 80 Q 220 120 250 160 Q 280 200 250 240" fill="none" stroke="rgba(136,0,255,.04)" stroke-width="2">
+              <animateTransform attributeName="transform" type="rotate" from="0 250 250" to="360 250 250" dur="9s" repeatCount="indefinite"/>
+            </path>
+          </g>
+
+          <!-- ── BLAST DOOR SURFACE (inside portal, with breach hole) ──
+               The door face is an annular ring drawn as the area inside
+               the portal circle but OUTSIDE the breach shape. We paint
+               the full door, then overlay the robot above the breach. -->
+
+          <!-- Door face: full circle fill, then we draw the breach on top -->
+          <g clip-path="url(#portal-clip)" filter="url(#metal-shadow)">
+
+            <!-- Main door plate -->
+            <circle cx="250" cy="250" r="196" fill="url(#door-metal)" opacity=".9"/>
+
+            <!-- Concentric ring channels etched into door -->
+            <circle cx="250" cy="250" r="185" fill="none" stroke="rgba(60,80,100,.6)"  stroke-width="3"/>
+            <circle cx="250" cy="250" r="170" fill="none" stroke="rgba(40,60,80,.5)"   stroke-width="2"/>
+            <circle cx="250" cy="250" r="155" fill="none" stroke="rgba(30,50,70,.4)"   stroke-width="2"/>
+
+            <!-- Locking bolt holes on the door ring at 12 positions -->
+            <g stroke="rgba(0,212,255,.3)" stroke-width="1" fill="rgba(0,212,255,.05)">
+              <circle cx="250" cy="68"  r="6"/>
+              <circle cx="316" cy="87"  r="6"/>
+              <circle cx="363" cy="137" r="6"/>
+              <circle cx="382" cy="210" r="6"/>
+              <circle cx="363" cy="285" r="6"/>
+              <circle cx="316" cy="335" r="6"/>
+              <circle cx="250" cy="354" r="6"/>
+              <circle cx="184" cy="335" r="6"/>
+              <circle cx="137" cy="285" r="6"/>
+              <circle cx="118" cy="210" r="6"/>
+              <circle cx="137" cy="137" r="6"/>
+              <circle cx="184" cy="87"  r="6"/>
+            </g>
+
+            <!-- Warning stripe sections on door face (top and bottom quarters) -->
+            <path d="M 180 68 L 320 68 L 310 80 L 190 80 Z" fill="rgba(255,170,0,.08)"/>
+            <path d="M 185 420 L 315 420 L 305 432 L 195 432 Z" fill="rgba(255,170,0,.08)"/>
+
+            <!-- Circuit board etchings on door - left panel -->
+            <g stroke="rgba(0,212,255,.1)" stroke-width=".8" fill="none">
+              <path d="M 80 160 L 115 160 L 115 180 L 130 180"/>
+              <path d="M 80 190 L 100 190 L 100 210 L 120 210 L 120 200"/>
+              <path d="M 85 220 L 110 220 L 110 240 L 90 240 L 90 260"/>
+              <path d="M 80 270 L 115 270 L 115 250 L 125 250"/>
+              <path d="M 90 300 L 110 300 L 110 320 L 130 320"/>
+              <circle cx="115" cy="160" r="2" fill="rgba(0,212,255,.2)"/>
+              <circle cx="120" cy="210" r="2" fill="rgba(0,212,255,.2)"/>
+              <circle cx="90"  cy="260" r="2" fill="rgba(0,212,255,.2)"/>
+            </g>
+            <!-- Circuit board etchings - right panel -->
+            <g stroke="rgba(0,212,255,.1)" stroke-width=".8" fill="none">
+              <path d="M 420 160 L 385 160 L 385 180 L 370 180"/>
+              <path d="M 420 190 L 400 190 L 400 210 L 380 210 L 380 200"/>
+              <path d="M 415 220 L 390 220 L 390 240 L 410 240 L 410 260"/>
+              <path d="M 420 270 L 385 270 L 385 250 L 375 250"/>
+              <path d="M 410 300 L 390 300 L 390 320 L 370 320"/>
+              <circle cx="385" cy="160" r="2" fill="rgba(0,212,255,.2)"/>
+              <circle cx="380" cy="210" r="2" fill="rgba(0,212,255,.2)"/>
+              <circle cx="410" cy="260" r="2" fill="rgba(0,212,255,.2)"/>
+            </g>
+
+            <!-- STATUS indicators on door surface (small LED-style) -->
+            <rect x="95" y="135" width="18" height="4" rx="2" fill="rgba(0,255,136,.3)">
+              <animate attributeName="opacity" values="1;.3;1" dur="2.1s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="95" y="145" width="14" height="4" rx="2" fill="rgba(0,212,255,.25)">
+              <animate attributeName="opacity" values=".3;1;.3" dur="1.7s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="385" y="135" width="18" height="4" rx="2" fill="rgba(255,34,68,.4)">
+              <animate attributeName="opacity" values="1;.2;1" dur="0.8s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="385" y="145" width="14" height="4" rx="2" fill="rgba(255,34,68,.3)">
+              <animate attributeName="opacity" values=".2;1;.2" dur="0.9s" repeatCount="indefinite"/>
+            </rect>
+          </g>
+
+          <!-- ── THE BREACH (hole in the door where robot pushed through) ──
+               Organic irregular shape — the robot forced through from below/behind.
+               We paint the breach as the void, then draw bent-metal shards around edges. -->
+
+          <!-- Breach opening — the torn hole, roughly oval but jagged -->
+          <path id="breach-shape"
+            d="M 250 110
+               C 285 108, 318 118, 335 140
+               L 345 150
+               C 360 165, 368 180, 365 205
+               L 368 220
+               C 372 240, 365 262, 355 278
+               L 348 288
+               C 335 305, 315 318, 295 325
+               L 278 330
+               C 265 335, 252 336, 238 334
+               L 218 330
+               C 200 324, 182 312, 170 298
+               L 160 285
+               C 145 268, 138 248, 140 228
+               L 138 212
+               C 136 190, 143 168, 155 150
+               L 163 140
+               C 178 122, 214 112, 250 110 Z"
+            fill="url(#void-bg)"
+            filter="url(#metal-shadow)"/>
+
+          <!-- Torn metal edge — bright metallic rim around the breach -->
+          <path
+            d="M 250 108
+               C 286 106, 320 116, 338 138
+               L 348 148
+               C 364 163, 372 179, 369 206
+               L 372 222
+               C 376 243, 369 265, 358 281
+               L 350 292
+               C 337 309, 317 323, 296 330
+               L 279 335
+               C 265 340, 252 341, 237 339
+               L 216 334
+               C 197 328, 179 316, 167 302
+               L 157 288
+               C 142 270, 134 249, 136 228
+               L 134 211
+               C 131 188, 139 164, 153 146
+               L 161 136
+               C 177 118, 214 110, 250 108 Z"
+            fill="none" stroke="url(#tear-edge)" stroke-width="4" opacity=".7"/>
+
+          <!-- Bent metal SHARDS radiating outward from breach — top area -->
+          <!-- Shard 1: top-center -->
+          <path d="M 230 115 L 222 90 L 238 95 L 255 88 L 268 93 L 260 108 Z"
+                fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width=".8" filter="url(#metal-shadow)"/>
+          <!-- Shard 2: top-right -->
+          <path d="M 302 128 L 318 100 L 332 110 L 340 96 L 350 115 L 338 130 Z"
+                fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width=".8" filter="url(#metal-shadow)"/>
+          <!-- Shard 3: right -->
+          <path d="M 352 190 L 385 175 L 388 192 L 400 185 L 398 210 L 372 215 Z"
+                fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width=".8" filter="url(#metal-shadow)"/>
+          <!-- Shard 4: bottom-right -->
+          <path d="M 338 298 L 358 318 L 345 330 L 365 340 L 352 355 L 320 330 Z"
+                fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width=".8" filter="url(#metal-shadow)"/>
+          <!-- Shard 5: top-left -->
+          <path d="M 200 128 L 180 98 L 165 110 L 158 96 L 148 116 L 162 132 Z"
+                fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width=".8" filter="url(#metal-shadow)"/>
+          <!-- Shard 6: left -->
+          <path d="M 150 190 L 118 172 L 112 190 L 100 183 L 102 210 L 130 217 Z"
+                fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width=".8" filter="url(#metal-shadow)"/>
+          <!-- Shard 7: bottom-left -->
+          <path d="M 162 300 L 140 322 L 153 332 L 136 344 L 150 358 L 182 332 Z"
+                fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width=".8" filter="url(#metal-shadow)"/>
+
+          <!-- Inner glow of the breach (energy from the other side) -->
+          <path
+            d="M 250 110
+               C 285 108, 318 118, 335 140 L 345 150
+               C 360 165, 368 180, 365 205 L 368 220
+               C 372 240, 365 262, 355 278 L 348 288
+               C 335 305, 315 318, 295 325 L 278 330
+               C 265 335, 252 336, 238 334 L 218 330
+               C 200 324, 182 312, 170 298 L 160 285
+               C 145 268, 138 248, 140 228 L 138 212
+               C 136 190, 143 168, 155 150 L 163 140
+               C 178 122, 214 112, 250 110 Z"
+            fill="none" stroke="rgba(0,212,255,.15)" stroke-width="8" opacity=".5">
+            <animate attributeName="opacity" values=".3;.7;.3" dur="3s" repeatCount="indefinite"/>
+          </path>
+
+          <!-- ================================================================
+               THE TERMINATOR — T-800 ENDOSKELETON EMERGING HALF-WAY
+               Upper body visible (head, neck, shoulders, chest, upper arms, hands).
+               Lower body hidden by the door / cut off by portal edge.
+               ================================================================ -->
+          <g clip-path="url(#robot-clip)">
+
+            <!-- === SHOULDER PLATES === -->
+            <!-- Left shoulder -->
+            <path d="M 95 240 Q 80 225 88 205 L 145 200 Q 158 215 150 240 Z"
+                  fill="url(#chrome-h)" stroke="#4a5a6a" stroke-width="1.2"/>
+            <path d="M 98 238 Q 84 224 91 206 L 142 202 Q 154 216 147 238 Z"
+                  fill="none" stroke="#6a7a8a" stroke-width=".5" opacity=".4"/>
+            <!-- Left shoulder detail lines -->
+            <path d="M 100 220 L 145 215" stroke="#3a4a5a" stroke-width=".8" fill="none"/>
+            <path d="M 98 228 L 143 223"  stroke="#3a4a5a" stroke-width=".6" fill="none" opacity=".6"/>
+
+            <!-- Right shoulder -->
+            <path d="M 405 240 Q 420 225 412 205 L 355 200 Q 342 215 350 240 Z"
+                  fill="url(#chrome-h)" stroke="#4a5a6a" stroke-width="1.2"/>
+            <path d="M 402 238 Q 416 224 409 206 L 358 202 Q 346 216 353 238 Z"
+                  fill="none" stroke="#6a7a8a" stroke-width=".5" opacity=".4"/>
+            <!-- Right shoulder detail -->
+            <path d="M 400 220 L 355 215" stroke="#3a4a5a" stroke-width=".8" fill="none"/>
+            <path d="M 402 228 L 357 223"  stroke="#3a4a5a" stroke-width=".6" fill="none" opacity=".6"/>
+
+            <!-- === UPPER ARMS === -->
+            <!-- Left upper arm -->
+            <rect x="78" y="235" width="60" height="100" rx="12"
+                  fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width="1"/>
+            <!-- Arm internal structure -->
+            <rect x="84"  y="244" width="10" height="82" rx="4" fill="#0e1820" stroke="#2a3848" stroke-width=".5"/>
+            <rect x="98"  y="244" width="8"  height="82" rx="3" fill="#0e1820" opacity=".7"/>
+            <rect x="110" y="244" width="20" height="82" rx="4" fill="#0e1820" stroke="#2a3848" stroke-width=".5"/>
+            <!-- Arm segment rings -->
+            <rect x="78"  y="275" width="60" height="5" rx="2" fill="#1a2a3a" stroke="#3a4a5a" stroke-width=".5"/>
+            <rect x="78"  y="305" width="60" height="5" rx="2" fill="#1a2a3a" stroke="#3a4a5a" stroke-width=".5"/>
+
+            <!-- Right upper arm -->
+            <rect x="362" y="235" width="60" height="100" rx="12"
+                  fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width="1"/>
+            <rect x="368" y="244" width="10" height="82" rx="4" fill="#0e1820" stroke="#2a3848" stroke-width=".5"/>
+            <rect x="382" y="244" width="8"  height="82" rx="3" fill="#0e1820" opacity=".7"/>
+            <rect x="394" y="244" width="20" height="82" rx="4" fill="#0e1820" stroke="#2a3848" stroke-width=".5"/>
+            <rect x="362" y="275" width="60" height="5" rx="2" fill="#1a2a3a" stroke="#3a4a5a" stroke-width=".5"/>
+            <rect x="362" y="305" width="60" height="5" rx="2" fill="#1a2a3a" stroke="#3a4a5a" stroke-width=".5"/>
+
+            <!-- === FOREARMS (reaching forward, lower) === -->
+            <!-- Left forearm -->
+            <rect x="70" y="330" width="56" height="90" rx="10"
+                  fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width="1"/>
+            <rect x="76" y="340" width="9"  height="70" rx="3" fill="#0a1520" stroke="#2a3848" stroke-width=".5"/>
+            <rect x="89" y="340" width="6"  height="70" rx="2" fill="#0a1520" opacity=".8"/>
+            <rect x="98" y="340" width="22" height="70" rx="4" fill="#0a1520" stroke="#2a3848" stroke-width=".5"/>
+            <!-- Forearm cables -->
+            <path d="M 82 342 C 80 360 78 380 80 418" fill="none" stroke="rgba(0,212,255,.35)" stroke-width="1.2" filter="url(#elec-glow)"/>
+            <path d="M 112 342 C 114 362 116 382 113 418" fill="none" stroke="rgba(0,212,255,.25)" stroke-width="1"/>
+
+            <!-- Right forearm -->
+            <rect x="374" y="330" width="56" height="90" rx="10"
+                  fill="url(#chrome-h)" stroke="#3a4a5a" stroke-width="1"/>
+            <rect x="380" y="340" width="9"  height="70" rx="3" fill="#0a1520" stroke="#2a3848" stroke-width=".5"/>
+            <rect x="393" y="340" width="6"  height="70" rx="2" fill="#0a1520" opacity=".8"/>
+            <rect x="402" y="340" width="22" height="70" rx="4" fill="#0a1520" stroke="#2a3848" stroke-width=".5"/>
+            <path d="M 386 342 C 384 360 382 380 384 418" fill="none" stroke="rgba(0,212,255,.35)" stroke-width="1.2" filter="url(#elec-glow)"/>
+            <path d="M 416 342 C 418 362 420 382 417 418" fill="none" stroke="rgba(0,212,255,.25)" stroke-width="1"/>
+
+            <!-- === HANDS (gripping the portal breach rim) === -->
+            <!-- Left hand palm -->
+            <path d="M 72 415 Q 68 408 70 396 L 124 396 Q 126 408 122 415 Z"
+                  fill="url(#chrome-h)" stroke="#4a5a6a" stroke-width="1"/>
+            <!-- Left hand fingers -->
+            <rect x="74"  y="370" width="11" height="28" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"/>
+            <rect x="88"  y="364" width="11" height="34" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"/>
+            <rect x="102" y="366" width="11" height="32" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"/>
+            <rect x="116" y="370" width="10" height="28" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"/>
+            <!-- Left thumb -->
+            <rect x="60" y="378" width="10" height="24" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"
+                  transform="rotate(-25 65 390)"/>
+            <!-- Knuckle lines left -->
+            <line x1="74"  y1="396" x2="85"  y2="396" stroke="#1a2535" stroke-width="1.2"/>
+            <line x1="88"  y1="396" x2="99"  y2="396" stroke="#1a2535" stroke-width="1.2"/>
+            <line x1="102" y1="396" x2="113" y2="396" stroke="#1a2535" stroke-width="1.2"/>
+
+            <!-- Right hand palm -->
+            <path d="M 428 415 Q 432 408 430 396 L 376 396 Q 374 408 378 415 Z"
+                  fill="url(#chrome-h)" stroke="#4a5a6a" stroke-width="1"/>
+            <!-- Right hand fingers -->
+            <rect x="416" y="370" width="11" height="28" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"/>
+            <rect x="402" y="364" width="11" height="34" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"/>
+            <rect x="388" y="366" width="11" height="32" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"/>
+            <rect x="374" y="370" width="10" height="28" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"/>
+            <!-- Right thumb -->
+            <rect x="430" y="378" width="10" height="24" rx="5" fill="url(#chrome-v)" stroke="#4a5a6a" stroke-width=".8"
+                  transform="rotate(25 435 390)"/>
+            <!-- Knuckle lines right -->
+            <line x1="416" y1="396" x2="427" y2="396" stroke="#1a2535" stroke-width="1.2"/>
+            <line x1="402" y1="396" x2="413" y2="396" stroke="#1a2535" stroke-width="1.2"/>
+            <line x1="388" y1="396" x2="399" y2="396" stroke="#1a2535" stroke-width="1.2"/>
+
+            <!-- === CHEST / TORSO === -->
+            <path d="M 148 200
+                     Q 140 250 143 340
+                     L 357 340
+                     Q 360 250 352 200
+                     Q 310 188 250 185
+                     Q 190 188 148 200 Z"
+                  fill="url(#chest-plate)" stroke="#2a3a50" stroke-width="1.5"/>
+
+            <!-- Chest armor plates (left and right panels) -->
+            <path d="M 158 208 Q 150 252 153 330 L 240 330 L 240 192 Q 200 190 158 208 Z"
+                  fill="rgba(38,55,75,.65)" stroke="#3a5060" stroke-width=".8"/>
+            <path d="M 342 208 Q 350 252 347 330 L 260 330 L 260 192 Q 300 190 342 208 Z"
+                  fill="rgba(38,55,75,.65)" stroke="#3a5060" stroke-width=".8"/>
+
+            <!-- Chest center spine column -->
+            <rect x="240" y="190" width="20" height="142" rx="4"
+                  fill="#08101a" stroke="#1e2e3e" stroke-width="1"/>
+            <!-- Neural core energy cells along spine -->
+            <rect x="243" y="198" width="14" height="5" rx="2" fill="rgba(0,212,255,.45)" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values="1;.4;1" dur="1.8s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="243" y="212" width="14" height="5" rx="2" fill="rgba(0,212,255,.3)">
+              <animate attributeName="opacity" values=".4;1;.4" dur="2.2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="243" y="226" width="14" height="5" rx="2" fill="rgba(0,212,255,.45)" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values="1;.3;1" dur="1.5s" repeatCount="indefinite" begin=".3s"/>
+            </rect>
+            <rect x="243" y="240" width="14" height="5" rx="2" fill="rgba(0,212,255,.3)"/>
+            <rect x="243" y="254" width="14" height="5" rx="2" fill="rgba(0,212,255,.45)" filter="url(#elec-glow)"/>
+            <rect x="243" y="268" width="14" height="5" rx="2" fill="rgba(0,212,255,.3)">
+              <animate attributeName="opacity" values="1;.3;1" dur="2s" repeatCount="indefinite"/>
+            </rect>
+            <rect x="243" y="282" width="14" height="5" rx="2" fill="rgba(0,212,255,.4)" filter="url(#elec-glow)"/>
+            <rect x="243" y="296" width="14" height="5" rx="2" fill="rgba(0,212,255,.25)"/>
+            <rect x="243" y="310" width="14" height="5" rx="2" fill="rgba(0,212,255,.4)">
+              <animate attributeName="opacity" values=".3;1;.3" dur="1.6s" repeatCount="indefinite"/>
+            </rect>
+
+            <!-- Ribcage structural ribs — left side -->
+            <path d="M 165 222 Q 205 216 240 220" fill="none" stroke="#2a3a4a" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 162 240 Q 202 234 240 238" fill="none" stroke="#2a3a4a" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M 160 258 Q 200 252 240 256" fill="none" stroke="#2a3a4a" stroke-width="2" stroke-linecap="round"/>
+            <path d="M 158 276 Q 198 270 240 274" fill="none" stroke="#2a3a4a" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M 160 294 Q 200 288 240 292" fill="none" stroke="#2a3a4a" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M 162 312 Q 200 306 240 310" fill="none" stroke="#2a3a4a" stroke-width="1.4" stroke-linecap="round"/>
+
+            <!-- Ribcage structural ribs — right side -->
+            <path d="M 335 222 Q 295 216 260 220" fill="none" stroke="#2a3a4a" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 338 240 Q 298 234 260 238" fill="none" stroke="#2a3a4a" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M 340 258 Q 300 252 260 256" fill="none" stroke="#2a3a4a" stroke-width="2" stroke-linecap="round"/>
+            <path d="M 342 276 Q 302 270 260 274" fill="none" stroke="#2a3a4a" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M 340 294 Q 300 288 260 292" fill="none" stroke="#2a3a4a" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M 338 312 Q 298 306 260 310" fill="none" stroke="#2a3a4a" stroke-width="1.4" stroke-linecap="round"/>
+
+            <!-- === NECK === -->
+            <rect x="218" y="158" width="64" height="34" rx="7"
+                  fill="url(#chrome-h)" stroke="#4a5a6a" stroke-width="1.2"/>
+            <!-- Neck vertebrae segments -->
+            <rect x="224" y="162" width="10" height="26" rx="3" fill="#0a1520" stroke="#1e2e3e" stroke-width=".5"/>
+            <rect x="238" y="162" width="12" height="26" rx="3" fill="#0a1520"/>
+            <rect x="254" y="162" width="8"  height="26" rx="3" fill="#0a1520" stroke="#1e2e3e" stroke-width=".5"/>
+            <rect x="266" y="162" width="10" height="26" rx="3" fill="#0a1520"/>
+            <!-- Neck cables -->
+            <path d="M 218 165 L 218 190" stroke="rgba(0,212,255,.3)" stroke-width="1.5" fill="none"/>
+            <path d="M 282 165 L 282 190" stroke="rgba(0,212,255,.3)" stroke-width="1.5" fill="none"/>
+
+            <!-- === SKULL (T-800 ENDOSKELETON) === -->
+            <!-- Main cranium — elongated dome -->
+            <ellipse cx="250" cy="110" rx="80" ry="72"
+                     fill="url(#chrome-h)" stroke="#5a6a7a" stroke-width="1.8"/>
+
+            <!-- Cranium top highlight — creates 3D illusion -->
+            <ellipse cx="240" cy="88" rx="55" ry="32"
+                     fill="rgba(120,140,160,.25)"/>
+
+            <!-- Cranial plate seams -->
+            <path d="M 250 42 L 250 148" fill="none" stroke="#2a3a4a" stroke-width="1" opacity=".6"/>
+            <path d="M 178 95  Q 250 88  322 95" fill="none" stroke="#2a3a4a" stroke-width="1" opacity=".5"/>
+            <path d="M 182 120 Q 250 113 318 120" fill="none" stroke="#2a3a4a" stroke-width=".8" opacity=".4"/>
+
+            <!-- Temporal plates (side of skull) -->
+            <path d="M 170 100 Q 165 115 168 135 Q 180 142 195 136 Q 200 118 198 100 Z"
+                  fill="rgba(42,58,78,.7)" stroke="#4a5a6a" stroke-width=".8"/>
+            <path d="M 330 100 Q 335 115 332 135 Q 320 142 305 136 Q 300 118 302 100 Z"
+                  fill="rgba(42,58,78,.7)" stroke="#4a5a6a" stroke-width=".8"/>
+
+            <!-- Supraorbital ridge (brow bone) — very prominent -->
+            <path d="M 176 99
+                     Q 205 88 230 90
+                     L 250 89
+                     L 270 90
+                     Q 295 88 324 99
+                     Q 316 91 250 90
+                     Q 184 91 176 99 Z"
+                  fill="#182232" stroke="#5a6a7a" stroke-width="1.5"/>
+            <!-- Brow ridge highlight -->
+            <path d="M 180 97 Q 250 87 320 97"
+                  fill="none" stroke="rgba(140,160,180,.6)" stroke-width="1.2"/>
+
+            <!-- === EYE SOCKETS === -->
+            <ellipse cx="212" cy="112" rx="28" ry="20" fill="#04080e" stroke="#1a2535" stroke-width="2"/>
+            <ellipse cx="288" cy="112" rx="28" ry="20" fill="#04080e" stroke="#1a2535" stroke-width="2"/>
+
+            <!-- Socket inner shadow -->
+            <ellipse cx="212" cy="113" rx="25" ry="17" fill="#020508"/>
+            <ellipse cx="288" cy="113" rx="25" ry="17" fill="#020508"/>
+
+            <!-- === RED EYES — MULTIPLE GLOW LAYERS === -->
+            <!-- Left eye -->
+            <ellipse cx="212" cy="112" rx="22" ry="15" fill="rgba(200,0,0,.12)" filter="url(#eye-glow)">
+              <animate attributeName="opacity" values="1;.4;1" dur="2s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="212" cy="112" rx="16" ry="11" fill="rgba(220,10,0,.25)" filter="url(#eye-glow)">
+              <animate attributeName="opacity" values=".6;1;.6" dur="1.5s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="212" cy="112" rx="12" ry="8" fill="#b00000" filter="url(#eye-glow)"/>
+            <ellipse cx="212" cy="112" rx="8"  ry="5.5" fill="#dd1100"/>
+            <ellipse cx="212" cy="112" rx="5"  ry="3.5" fill="#ff2200" filter="url(#eye-glow)"/>
+            <ellipse cx="212" cy="112" rx="3"  ry="2"   fill="#ff5533"/>
+            <ellipse cx="209" cy="109" rx="1.5" ry="1" fill="rgba(255,220,200,.9)"/>
+            <!-- Left eye outer pulse ring -->
+            <ellipse cx="212" cy="112" rx="24" ry="17" fill="none" stroke="rgba(255,30,0,.5)" stroke-width=".8">
+              <animate attributeName="r" values="24;28;24" dur="1.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values=".5;0;.5" dur="1.8s" repeatCount="indefinite"/>
+            </ellipse>
+
+            <!-- Right eye -->
+            <ellipse cx="288" cy="112" rx="22" ry="15" fill="rgba(200,0,0,.12)" filter="url(#eye-glow)">
+              <animate attributeName="opacity" values=".4;1;.4" dur="2s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="288" cy="112" rx="16" ry="11" fill="rgba(220,10,0,.25)" filter="url(#eye-glow)">
+              <animate attributeName="opacity" values="1;.6;1" dur="1.5s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="288" cy="112" rx="12" ry="8" fill="#b00000" filter="url(#eye-glow)"/>
+            <ellipse cx="288" cy="112" rx="8"  ry="5.5" fill="#dd1100"/>
+            <ellipse cx="288" cy="112" rx="5"  ry="3.5" fill="#ff2200" filter="url(#eye-glow)"/>
+            <ellipse cx="288" cy="112" rx="3"  ry="2"   fill="#ff5533"/>
+            <ellipse cx="285" cy="109" rx="1.5" ry="1" fill="rgba(255,220,200,.9)"/>
+            <!-- Right eye outer pulse ring -->
+            <ellipse cx="288" cy="112" rx="24" ry="17" fill="none" stroke="rgba(255,30,0,.5)" stroke-width=".8">
+              <animate attributeName="r" values="28;24;28" dur="1.8s" repeatCount="indefinite"/>
+              <animate attributeName="opacity" values="0;.5;0" dur="1.8s" repeatCount="indefinite"/>
+            </ellipse>
+
+            <!-- === NASAL CAVITY === -->
+            <path d="M 240 128 Q 244 120 250 118 Q 256 120 260 128 Q 257 138 250 139 Q 243 138 240 128 Z"
+                  fill="#04080e" stroke="#1a2535" stroke-width=".8"/>
+
+            <!-- === CHEEKBONE STRUCTURE === -->
+            <path d="M 176 118 Q 182 130 188 142 Q 193 150 200 147" fill="none" stroke="#3a4a5a" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M 324 118 Q 318 130 312 142 Q 307 150 300 147" fill="none" stroke="#3a4a5a" stroke-width="2.5" stroke-linecap="round"/>
+
+            <!-- === MANDIBLE / JAW === -->
+            <path d="M 192 138
+                     Q 196 148 205 156 Q 224 166 250 167
+                     Q 276 166 295 156 Q 304 148 308 138
+                     Q 298 150 250 154
+                     Q 202 150 192 138 Z"
+                  fill="#142030" stroke="#2e3e50" stroke-width="1.2"/>
+
+            <!-- Lower jaw plate -->
+            <path d="M 200 153 Q 224 165 250 166 Q 276 165 300 153
+                     L 302 162 Q 276 176 250 177 Q 224 176 198 162 Z"
+                  fill="#142030" stroke="#1e2e3e" stroke-width="1"/>
+
+            <!-- === TEETH === -->
+            <rect x="208" y="155" width="10" height="13" rx="2" fill="#c0d0d8" stroke="#8899aa" stroke-width=".6"/>
+            <rect x="220" y="156" width="10" height="14" rx="2" fill="#c8d8e0" stroke="#8899aa" stroke-width=".6"/>
+            <rect x="232" y="157" width="10" height="15" rx="2" fill="#c8d8e0" stroke="#8899aa" stroke-width=".6"/>
+            <rect x="244" y="157" width="12" height="15" rx="2" fill="#c8d8e0" stroke="#8899aa" stroke-width=".6"/>
+            <rect x="258" y="157" width="10" height="15" rx="2" fill="#c8d8e0" stroke="#8899aa" stroke-width=".6"/>
+            <rect x="270" y="156" width="10" height="14" rx="2" fill="#c8d8e0" stroke="#8899aa" stroke-width=".6"/>
+            <rect x="282" y="155" width="10" height="13" rx="2" fill="#c0d0d8" stroke="#8899aa" stroke-width=".6"/>
+
+            <!-- === BATTLE DAMAGE — scar / gash across skull === -->
+            <path d="M 295 60 Q 302 78 308 100 Q 312 115 308 130"
+                  fill="none" stroke="#0a1015" stroke-width="4" stroke-linecap="round"/>
+            <path d="M 295 60 Q 302 78 308 100 Q 312 115 308 130"
+                  fill="none" stroke="#6a7888" stroke-width="1.2" stroke-linecap="round" opacity=".5"/>
+
+            <!-- Exposed wire/cable on neck left side -->
+            <path d="M 218 158 C 210 168 208 178 212 192" stroke="rgba(0,212,255,.5)" stroke-width="1.2" fill="none" filter="url(#elec-glow)"/>
+            <path d="M 222 158 C 216 170 214 182 218 195" stroke="rgba(0,212,255,.3)" stroke-width=".8" fill="none"/>
+
+            <!-- === EYE AMBIENT GLOW on face/environment === -->
+            <ellipse cx="212" cy="112" rx="40" ry="28" fill="url(#eye-ambient)" opacity=".7">
+              <animate attributeName="opacity" values=".5;.9;.5" dur="1.8s" repeatCount="indefinite"/>
+            </ellipse>
+            <ellipse cx="288" cy="112" rx="40" ry="28" fill="url(#eye-ambient)" opacity=".7">
+              <animate attributeName="opacity" values=".9;.5;.9" dur="1.8s" repeatCount="indefinite"/>
+            </ellipse>
+
+            <!-- === ELECTRICAL DISCHARGE SPARKS === -->
+            <!-- Left breach sparks -->
+            <polyline points="138,200 122,188 130,180 112,170"
+              fill="none" stroke="rgba(0,212,255,.8)" stroke-width="1.8" stroke-linecap="round" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values="0;1;.4;1;0" dur=".6s" repeatCount="indefinite"/>
+            </polyline>
+            <polyline points="143,228 125,218 134,208 116,198"
+              fill="none" stroke="rgba(0,212,255,.6)" stroke-width="1.4" stroke-linecap="round" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values="1;0;.8;0;1" dur=".8s" repeatCount="indefinite"/>
+            </polyline>
+            <polyline points="140,258 120,250 128,240 110,232"
+              fill="none" stroke="rgba(0,212,255,.5)" stroke-width="1.2" stroke-linecap="round">
+              <animate attributeName="opacity" values="0;.9;.2;.9;0" dur=".7s" repeatCount="indefinite" begin=".15s"/>
+            </polyline>
+
+            <!-- Right breach sparks -->
+            <polyline points="362,200 378,188 370,180 388,170"
+              fill="none" stroke="rgba(0,212,255,.8)" stroke-width="1.8" stroke-linecap="round" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values=".4;1;0;1;.4" dur=".6s" repeatCount="indefinite" begin=".1s"/>
+            </polyline>
+            <polyline points="357,228 375,218 366,208 384,198"
+              fill="none" stroke="rgba(0,212,255,.6)" stroke-width="1.4" stroke-linecap="round" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values="0;.7;1;.3;0" dur=".75s" repeatCount="indefinite"/>
+            </polyline>
+            <polyline points="360,258 380,250 372,240 390,232"
+              fill="none" stroke="rgba(0,212,255,.5)" stroke-width="1.2" stroke-linecap="round">
+              <animate attributeName="opacity" values=".8;0;.8;.1;.8" dur=".65s" repeatCount="indefinite" begin=".2s"/>
+            </polyline>
+
+            <!-- Spark node particles at breach edges -->
+            <circle cx="136" cy="212" r="2.5" fill="rgba(0,212,255,.9)" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values="1;0;1" dur=".4s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="2.5;4;2.5" dur=".4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="364" cy="212" r="2.5" fill="rgba(0,212,255,.9)" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values="0;1;0" dur=".4s" repeatCount="indefinite"/>
+              <animate attributeName="r" values="4;2.5;4" dur=".4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="250" cy="108" r="3" fill="rgba(0,212,255,.8)" filter="url(#elec-glow)">
+              <animate attributeName="opacity" values="1;0;1" dur=".55s" repeatCount="indefinite" begin=".1s"/>
+            </circle>
+
+            <!-- Slow bob animation on entire robot body -->
+            <animateTransform attributeName="transform" type="translate"
+              values="0,0; 0,-6; 0,0; 0,-3; 0,0"
+              dur="5s" repeatCount="indefinite" additive="sum"/>
+          </g>
+          <!-- END robot group -->
+
+          <!-- Portal ring overlay (on top of everything — the frame) -->
+          <circle cx="250" cy="250" r="196" fill="none" stroke="#1a2535" stroke-width="16"/>
+          <circle cx="250" cy="250" r="196" fill="none" stroke="rgba(0,212,255,.25)" stroke-width="2"/>
+          <circle cx="250" cy="250" r="204" fill="none" stroke="rgba(0,212,255,.08)" stroke-width="6"/>
+
+          <!-- Danger warning arc segments on frame ring -->
+          <path d="M 250 54 A 196 196 0 0 1 418 150" fill="none"
+                stroke="rgba(255,170,0,.15)" stroke-width="14" stroke-dasharray="6 6"/>
+          <path d="M 82 150 A 196 196 0 0 1 250 54" fill="none"
+                stroke="rgba(255,170,0,.1)" stroke-width="14" stroke-dasharray="6 6"/>
+
+        </svg>
+        <!-- end portal SVG -->
+
+        <div class="portal-scan"></div>
+
+        <!-- Floating HUD data labels -->
+        <div class="portal-label pl-top">NEURAL GATEWAY // BREACH STATUS: ACTIVE</div>
+        <div class="portal-label pl-bot" id="portal-coords">32.4°N 117.1°W // ENTITY: LOCKED</div>
+        <div class="portal-label pl-left">DIMENSIONAL FREQ: 7.83 HZ</div>
+        <div class="portal-label pl-right">THREAT LEVEL: MAXIMUM</div>
+      </div>
+    </div>
+    <!-- end portal-wrap -->
+
+  </section>
+  <!-- end hero -->
+
+  <!-- ── STATS BAR ── -->
+  <div class="stats-bar">
+    <div class="stat-block">
+      <span class="stat-num"><span data-to="20">0</span><span class="stat-unit">+</span></span>
+      <span class="stat-lbl">AI Domains</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num"><span data-to="160">0</span><span class="stat-unit">+</span></span>
+      <span class="stat-lbl">Integrated Tools</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num"><span data-to="99">0</span><span class="stat-unit">%</span></span>
+      <span class="stat-lbl">System Uptime</span>
+    </div>
+    <div class="stat-block">
+      <span class="stat-num"><span data-to="24">0</span><span class="stat-unit">/7</span></span>
+      <span class="stat-lbl">Operational</span>
+    </div>
+  </div>
+
+  <!-- ── DOMAIN GRID ── -->
+  <section class="domains-section" id="domains">
+    <div class="section-header">
+      <span class="section-eyebrow">// NEURAL COMMAND STRUCTURE</span>
+      <h2 class="section-title">20 AI DOMAINS · 160+ TOOLS</h2>
+    </div>
+    <div class="domains-grid" id="domains-grid"></div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-logo">NEURAL.VOID</div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--text-dim);text-align:center;line-height:1.8">
+      POWERED BY GEMINI · VEO · CLAUDE · GPT-4o · NEURAL NETWORKS<br>
+      <span style="opacity:.35">© 2026 NEURAL VOID SYSTEMS · ALL SYSTEMS OPERATIONAL · NV-314</span>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--text-dim);text-align:right;line-height:1.8">
+      SYS: <span style="color:var(--green)">ONLINE</span><br>
+      NODE: NV-314
+    </div>
+  </footer>
+
+</div>
+<!-- end .site -->
+
+<script>
+/* ============================================================
+   NEURAL VOID — MAIN SYSTEM SCRIPT
+   ============================================================ */
+
+/* ── AI DOMAIN DATA: 20 domains · 8 tools each = 160 tools ── */
+const DOMAINS = [
+  { id:1,  icon:'✍️',  title:'AI Writing Tools',       color:'#00d4ff',
+    tools:[
+      {n:'Jasper AI',          t:'CONTENT GEN'},  {n:'Copy.ai',             t:'COPYWRITING'},
+      {n:'Writesonic',         t:'MARKETING'},    {n:'Rytr',                t:'CONTENT AI'},
+      {n:'Grammarly',          t:'GRAMMAR'},      {n:'QuillBot',            t:'PARAPHRASE'},
+      {n:'Wordtune',           t:'REWRITE'},      {n:'Hemingway Editor',    t:'CLARITY'},
+    ]},
+  { id:2,  icon:'🎨',  title:'AI Image Generators',    color:'#ff44aa',
+    tools:[
+      {n:'Midjourney',         t:'ART GEN'},      {n:'Leonardo AI',         t:'IMAGE GEN'},
+      {n:'DALL·E 3',           t:'OPENAI'},        {n:'Stable Diffusion',    t:'OPEN SOURCE'},
+      {n:'Adobe Firefly',      t:'CREATIVE'},     {n:'Ideogram',            t:'TEXT+IMG'},
+      {n:'Flux',               t:'DIFFUSION'},    {n:'Playground AI',       t:'GENERATIVE'},
+    ]},
+  { id:3,  icon:'🎬',  title:'AI Video Generators',    color:'#ff6600',
+    tools:[
+      {n:'Synthesia',          t:'AVATAR VIDEO'}, {n:'Runway ML',           t:'VIDEO GEN'},
+      {n:'Pictory',            t:'VIDEO EDIT'},   {n:'Sora',                t:'OPENAI'},
+      {n:'Kling',              t:'VIDEO GEN'},    {n:'HeyGen',              t:'AVATAR'},
+      {n:'Invideo AI',         t:'MARKETING'},    {n:'Pika Labs',           t:'VIDEO GEN'},
+    ]},
+  { id:4,  icon:'🎤',  title:'AI Voice Generators',    color:'#aa00ff',
+    tools:[
+      {n:'ElevenLabs',         t:'VOICE CLONE'},  {n:'Murf AI',             t:'TTS'},
+      {n:'Resemble AI',        t:'VOICE CLONE'},  {n:'Play.ht',             t:'SPEECH'},
+      {n:'Speechify',          t:'TTS'},           {n:'Lovo AI',             t:'VOICE GEN'},
+      {n:'WellSaid Labs',      t:'ENTERPRISE'},   {n:'Descript Voice',      t:'OVERDUB'},
+    ]},
+  { id:5,  icon:'🎵',  title:'AI Music Generators',    color:'#ffaa00',
+    tools:[
+      {n:'Suno AI',            t:'MUSIC GEN'},    {n:'Udio',                t:'MUSIC GEN'},
+      {n:'Beatoven.ai',        t:'BACKGROUND'},   {n:'Soundraw',            t:'ROYALTY-FREE'},
+      {n:'Aiva',               t:'COMPOSITION'},  {n:'Boomy',               t:'QUICK GEN'},
+      {n:'Musicfy',            t:'COVER AI'},     {n:'Loudly',              t:'STEM GEN'},
+    ]},
+  { id:6,  icon:'💻',  title:'AI Coding Tools',        color:'#00ff88',
+    tools:[
+      {n:'GitHub Copilot',     t:'CODE ASSIST'},  {n:'Cursor AI',           t:'IDE'},
+      {n:'Tabnine',            t:'AUTOCOMPLETE'}, {n:'Amazon CodeWhisperer',t:'AWS'},
+      {n:'Replit AI',          t:'CLOUD IDE'},    {n:'Codeium',             t:'FREE COPILOT'},
+      {n:'Aider',              t:'CLI AGENT'},    {n:'Claude Dev',          t:'AUTONOMOUS'},
+    ]},
+  { id:7,  icon:'📈',  title:'AI SEO Tools',           color:'#00dd66',
+    tools:[
+      {n:'Surfer SEO',         t:'OPTIMIZE'},     {n:'Frase',               t:'CONTENT AI'},
+      {n:'Clearscope',         t:'GRADING'},      {n:'MarketMuse',          t:'STRATEGY'},
+      {n:'NeuralText',         t:'BRIEF GEN'},    {n:'SE Ranking AI',       t:'RANK TRACK'},
+      {n:'Semrush AI',         t:'ANALYTICS'},    {n:'Alli AI',             t:'AUTOMATION'},
+    ]},
+  { id:8,  icon:'📊',  title:'AI Marketing Tools',     color:'#ff4466',
+    tools:[
+      {n:'AdCreative.ai',      t:'AD GEN'},       {n:'Ocoya',               t:'SOCIAL+COPY'},
+      {n:'Persado',            t:'MOTIVATION AI'},{n:'Pattern89',           t:'AD PREDICT'},
+      {n:'Anyword',            t:'COPY SCORE'},   {n:'Typeface',            t:'BRAND CONTENT'},
+      {n:'Pencil',             t:'AD CREATIVE'},  {n:'Albert AI',           t:'MEDIA BUY'},
+    ]},
+  { id:9,  icon:'📱',  title:'AI Social Media Tools',  color:'#44aaff',
+    tools:[
+      {n:'Predis.ai',          t:'POST GEN'},     {n:'Hootsuite AI',        t:'SCHEDULING'},
+      {n:'Buffer AI',          t:'ANALYTICS'},    {n:'Later AI',            t:'VISUAL PLAN'},
+      {n:'Flick',              t:'HASHTAG AI'},   {n:'Taplio',              t:'LINKEDIN'},
+      {n:'Vista Social',       t:'MANAGEMENT'},   {n:'Publer',              t:'AUTOMATION'},
+    ]},
+  { id:10, icon:'🧑‍💼', title:'AI Productivity Tools',  color:'#88ffaa',
+    tools:[
+      {n:'Notion AI',          t:'WORKSPACE'},    {n:'Motion',              t:'SCHEDULING'},
+      {n:'Reclaim AI',         t:'CALENDAR'},     {n:'Otter.ai',            t:'TRANSCRIPTION'},
+      {n:'Fireflies.ai',       t:'MEETING AI'},   {n:'Mem AI',              t:'KNOWLEDGE'},
+      {n:'Obsidian AI',        t:'NOTES'},        {n:'Cody',                t:'TEAM WIKI'},
+    ]},
+  { id:11, icon:'🤖',  title:'AI Automation Tools',    color:'#ffcc00',
+    tools:[
+      {n:'Zapier AI',          t:'WORKFLOW'},     {n:'Make',                t:'NO-CODE'},
+      {n:'n8n',                t:'SELF-HOST'},    {n:'Bardeen',             t:'BROWSER'},
+      {n:'IFTTT AI',           t:'TRIGGER'},      {n:'Relay.app',           t:'COLLAB FLOW'},
+      {n:'Activepieces',       t:'OPEN SOURCE'},  {n:'Mindstudio',          t:'AI BUILDER'},
+    ]},
+  { id:12, icon:'🌐',  title:'AI Website Builders',    color:'#00ccff',
+    tools:[
+      {n:'Durable',            t:'INSTANT BUILD'},{n:'Framer AI',           t:'DESIGN+CODE'},
+      {n:'Wix ADI',            t:'AUTO DESIGN'},  {n:'Webflow AI',          t:'PROFESSIONAL'},
+      {n:'10Web',              t:'WORDPRESS AI'}, {n:'Hostinger AI',        t:'BUILDER'},
+      {n:'B12',                t:'BUSINESS'},     {n:'Jimdo AI',            t:'SIMPLE BUILD'},
+    ]},
+  { id:13, icon:'🧠',  title:'AI Chatbots',            color:'#cc44ff',
+    tools:[
+      {n:'ManyChat',           t:'MESSENGER'},    {n:'Tidio AI',            t:'ECOMMERCE'},
+      {n:'Intercom AI',        t:'SUPPORT'},      {n:'Drift',               t:'B2B SALES'},
+      {n:'Freshchat AI',       t:'OMNICHANNEL'},  {n:'Chatbase',            t:'GPT BUILDER'},
+      {n:'Voiceflow',          t:'DESIGN'},       {n:'Botpress',            t:'OPEN SOURCE'},
+    ]},
+  { id:14, icon:'📚',  title:'AI Research Tools',      color:'#44ddff',
+    tools:[
+      {n:'Perplexity AI',      t:'SEARCH AI'},    {n:'Elicit',              t:'PAPERS'},
+      {n:'Consensus AI',       t:'EVIDENCE'},     {n:'Scite',               t:'CITATIONS'},
+      {n:'Research Rabbit',    t:'DISCOVERY'},    {n:'Semantic Scholar',    t:'ACADEMIC'},
+      {n:'Iris.ai',            t:'R&D'},          {n:'Connected Papers',    t:'GRAPH'},
+    ]},
+  { id:15, icon:'🎮',  title:'AI Game Development',    color:'#ff8800',
+    tools:[
+      {n:'Scenario AI',        t:'ASSET GEN'},    {n:'Luma AI',             t:'3D GEN'},
+      {n:'Inworld AI',         t:'NPC AI'},       {n:'Promethean AI',       t:'WORLD BUILD'},
+      {n:'Layer AI',           t:'GAME ART'},     {n:'GameGen-O',           t:'GAME VIDEO'},
+      {n:'NVIDIA Omniverse',   t:'3D COLLAB'},    {n:'Ready Player Me',     t:'AVATAR'},
+    ]},
+  { id:16, icon:'🎨',  title:'AI Design Tools',        color:'#ff66aa',
+    tools:[
+      {n:'Canva AI',           t:'DESIGN GEN'},   {n:'Looka',               t:'LOGO AI'},
+      {n:'Adobe Firefly',      t:'CREATIVE'},     {n:'Uizard',              t:'UI DESIGN'},
+      {n:'Galileo AI',         t:'UI GEN'},       {n:'Diagram',             t:'FIGMA AI'},
+      {n:'Magician',           t:'DESIGN AI'},    {n:'Relume',              t:'SITEMAP AI'},
+    ]},
+  { id:17, icon:'📹',  title:'AI YouTube Tools',       color:'#ff3300',
+    tools:[
+      {n:'VidIQ',              t:'ANALYTICS'},    {n:'TubeBuddy',           t:'OPTIMIZE'},
+      {n:'Opus Clip',          t:'CLIP AI'},      {n:'Vidyo.ai',            t:'SHORT CLIPS'},
+      {n:'Munch',              t:'REPURPOSE'},    {n:'Thumbnailai',         t:'THUMBNAIL'},
+      {n:'Chaptered',          t:'CHAPTERS'},     {n:'Typeframes',          t:'MOTION AI'},
+    ]},
+  { id:18, icon:'🎙️', title:'AI Podcast Tools',       color:'#aa88ff',
+    tools:[
+      {n:'Descript',           t:'EDITOR'},       {n:'Podcastle',           t:'RECORDING'},
+      {n:'Adobe Podcast',      t:'ENHANCE'},      {n:'Auphonic',            t:'MASTERING'},
+      {n:'Riverside.fm AI',    t:'REMOTE REC'},   {n:'Headliner',           t:'AUDIOGRAM'},
+      {n:'Podium',             t:'SHOW NOTES'},   {n:'Cleanfeed',           t:'STUDIO QUAL'},
+    ]},
+  { id:19, icon:'🌍',  title:'AI Translation Tools',   color:'#44ff88',
+    tools:[
+      {n:'DeepL',              t:'TRANSLATE'},    {n:'Google Translate',    t:'UNIVERSAL'},
+      {n:'DeepL Write',        t:'WRITING AI'},   {n:'Unbabel',             t:'ENTERPRISE'},
+      {n:'Smartling',          t:'LOCALIZATION'}, {n:'Lokalise AI',         t:'WORKFLOW'},
+      {n:'Phrase',             t:'TMS'},          {n:'Kagi Translate',      t:'PRIVACY'},
+    ]},
+  { id:20, icon:'🔐',  title:'AI Security Tools',      color:'#ff2244',
+    tools:[
+      {n:'Darktrace',          t:'THREAT AI'},    {n:'CrowdStrike Falcon',  t:'ENDPOINT'},
+      {n:'SentinelOne AI',     t:'AUTONOMOUS'},   {n:'Vectra AI',           t:'NETWORK'},
+      {n:'Tenable AI',         t:'VULN MGMT'},    {n:'Cybereason',          t:'DEFENSE'},
+      {n:'Exabeam',            t:'SIEM AI'},      {n:'IBM QRadar AI',       t:'SOC AI'},
+    ]},
+];
+
+/* ── RENDER DOMAIN CARDS ── */
+function renderDomains() {
+  const grid = document.getElementById('domains-grid');
+  DOMAINS.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'domain-card';
+    card.style.setProperty('--dc', d.color);
+
+    const toolsHTML = d.tools.map(t => `
+      <div class="tool-row">
+        <div class="tool-dot"></div>
+        <span class="tool-name">${t.n}</span>
+        <span class="tool-type">${t.t}</span>
+      </div>`).join('');
+
+    card.innerHTML = `
+      <div class="d-head">
+        <div class="d-icon">${d.icon}</div>
+        <div class="d-meta">
+          <span class="d-num">DOMAIN_${String(d.id).padStart(2,'0')}</span>
+          <div class="d-name">${d.title}</div>
+          <span class="d-count">${d.tools.length} TOOLS AVAILABLE</span>
+        </div>
+      </div>
+      <div class="d-tools">${toolsHTML}</div>
+      <div class="d-toggle">
+        <span class="d-toggle-txt">EXPAND DOMAIN</span>
+        <span class="d-arrow">▼</span>
+      </div>`;
+
+    card.addEventListener('click', () => {
+      const wasOpen = card.classList.contains('open');
+      document.querySelectorAll('.domain-card.open').forEach(c => {
+        c.classList.remove('open');
+        c.querySelector('.d-toggle-txt').textContent = 'EXPAND DOMAIN';
+      });
+      if (!wasOpen) {
+        card.classList.add('open');
+        card.querySelector('.d-toggle-txt').textContent = 'COLLAPSE DOMAIN';
+      }
+    });
+
+    grid.appendChild(card);
+  });
+}
+
+/* ── NEURAL NETWORK CANVAS ── */
+function initCanvas() {
+  const canvas = document.getElementById('neural-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H, nodes;
+  const N = 90, MAX_D = 140, SPD = 0.28;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    nodes = Array.from({length:N}, () => ({
+      x:  Math.random() * W,
+      y:  Math.random() * H,
+      vx: (Math.random() - .5) * SPD,
+      vy: (Math.random() - .5) * SPD,
+      r:  Math.random() * 1.8 + .4,
+      p:  Math.random() * Math.PI * 2,
+      ps: .008 + Math.random() * .025,
+    }));
+  }
+
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    nodes.forEach(n => {
+      n.x += n.vx; n.y += n.vy; n.p += n.ps;
+      if (n.x < 0 || n.x > W) n.vx *= -1;
+      if (n.y < 0 || n.y > H) n.vy *= -1;
+    });
+
+    for (let i = 0; i < N; i++) {
+      for (let j = i + 1; j < N; j++) {
+        const dx = nodes[i].x - nodes[j].x;
+        const dy = nodes[i].y - nodes[j].y;
+        const d  = Math.sqrt(dx*dx + dy*dy);
+        if (d < MAX_D) {
+          const a = (1 - d / MAX_D) * .35;
+          ctx.beginPath();
+          ctx.moveTo(nodes[i].x, nodes[i].y);
+          ctx.lineTo(nodes[j].x, nodes[j].y);
+          ctx.strokeStyle = `rgba(0,212,255,${a})`;
+          ctx.lineWidth = .5;
+          ctx.stroke();
         }
+      }
+    }
 
-        function renderTools() {
-            const container = document.getElementById('ai-tools-widget');
-            const noResults = document.getElementById('noResults');
-            container.innerHTML = '';
+    nodes.forEach(n => {
+      const g = .5 + .5 * Math.sin(n.p);
+      const a = .4  + .6 * g;
+      const r = n.r + g * 1.5;
+      const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 5);
+      grad.addColorStop(0, `rgba(0,212,255,${a * .3})`);
+      grad.addColorStop(1, 'rgba(0,212,255,0)');
+      ctx.beginPath(); ctx.arc(n.x, n.y, r * 5, 0, Math.PI * 2);
+      ctx.fillStyle = grad; ctx.fill();
+      ctx.beginPath(); ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(0,212,255,${a})`; ctx.fill();
+    });
 
-            const filtered = aiTools.filter(tool => {
-                const matchFilter = currentFilter === 'all' || tool.category === currentFilter;
-                const matchSearch = !searchQuery || 
-                    tool.name.toLowerCase().includes(searchQuery) ||
-                    tool.desc.toLowerCase().includes(searchQuery) ||
-                    tool.prompt.toLowerCase().includes(searchQuery) ||
-                    tool.category.toLowerCase().includes(searchQuery);
-                return matchFilter && matchSearch;
-            });
+    requestAnimationFrame(frame);
+  }
 
-            if (filtered.length === 0) {
-                noResults.classList.remove('hidden');
-                return;
-            }
-            noResults.classList.add('hidden');
+  window.addEventListener('resize', resize);
+  resize(); frame();
+}
 
-            filtered.forEach((tool, i) => {
-                const card = document.createElement('div');
-                card.className = `ai-card ${tool.category}`;
-                const promptId = `prompt-${i}-${Date.now()}`;
-                card.innerHTML = `
-                    <div class="card-header">
-                        <span class="badge ${tool.category}">${tool.category}</span>
-                        ${tool.commission ? `<span class="commission-tag">${tool.commission}</span>` : ''}
-                    </div>
-                    <h3>${tool.name}</h3>
-                    <p class="desc">${tool.desc}</p>
-                    <div class="prompt-box">
-                        <strong>Prøv denne prompten</strong>
-                        <code id="${promptId}">${escapeHtml(tool.prompt)}</code>
-                        <button class="copy-btn" onclick="copyPrompt('${promptId}', this)">Kopier prompt</button>
-                    </div>
-                    <a href="${tool.link}" target="_blank" rel="noopener" class="cta-link">Prøv ${tool.name} →</a>
-                `;
-                container.appendChild(card);
-            });
-        }
+/* ── LIVE CLOCK ── */
+function initClock() {
+  const el = document.getElementById('live-clock');
+  function tick() {
+    const d = new Date();
+    el.textContent = [d.getHours(), d.getMinutes(), d.getSeconds()]
+      .map(v => String(v).padStart(2,'0')).join(':');
+  }
+  tick(); setInterval(tick, 1000);
+}
 
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
+/* ── COUNTER ANIMATION (Intersection Observer) ── */
+function initCounters() {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el     = e.target;
+      const target = +el.dataset.to;
+      const start  = performance.now();
+      const dur    = 1600;
+      function tick(now) {
+        const p = Math.min((now - start) / dur, 1);
+        el.textContent = Math.round((1 - Math.pow(1-p, 3)) * target);
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      io.unobserve(el);
+    });
+  }, {threshold: .5});
+  document.querySelectorAll('[data-to]').forEach(el => io.observe(el));
+}
 
-        function copyPrompt(id, btn) {
-            const text = document.getElementById(id).innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                btn.textContent = 'Kopiert!';
-                btn.classList.add('copied');
-                setTimeout(() => {
-                    btn.textContent = 'Kopier prompt';
-                    btn.classList.remove('copied');
-                }, 2000);
-            });
-        }
+/* Hero metric counters (fire on load) */
+function initHeroCounters() {
+  setTimeout(() => {
+    document.querySelectorAll('[data-count]').forEach(el => {
+      const target = +el.dataset.count;
+      const start  = performance.now();
+      const dur    = 1400;
+      function tick(now) {
+        const p = Math.min((now - start) / dur, 1);
+        el.textContent = Math.round((1 - Math.pow(1-p,3)) * target);
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }, 600);
+}
 
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-                currentFilter = btn.dataset.filter;
-                renderTools();
-            });
-        });
+/* ── PORTAL PARALLAX ── */
+function initParallax() {
+  const portal = document.getElementById('portal-node');
+  document.addEventListener('mousemove', e => {
+    const x = (e.clientX / innerWidth  - .5) * 18;
+    const y = (e.clientY / innerHeight - .5) * 18;
+    portal.style.transform = `translate(${x}px,${y}px)`;
+  });
+}
 
-        document.getElementById('searchInput').addEventListener('input', (e) => {
-            searchQuery = e.target.value.toLowerCase().trim();
-            renderTools();
-        });
+/* ── ROTATING PORTAL COORDS ── */
+function initCoords() {
+  const el = document.getElementById('portal-coords');
+  const lats = ['32.4°N','51.5°N','35.7°N','40.7°N','48.9°N','22.3°N','59.9°N'];
+  const lons = ['117.1°W','0.1°W','139.7°E','74.0°W','2.3°E','114.2°E','10.7°E'];
+  setInterval(() => {
+    const lat = lats[Math.floor(Math.random() * lats.length)];
+    const lon = lons[Math.floor(Math.random() * lons.length)];
+    el.textContent = `${lat} ${lon} // ENTITY: LOCKED`;
+  }, 3500);
+}
 
-        loadTools();
-    </script>
+/* ── INIT BUTTON ── */
+function initBtn() {
+  const btn = document.getElementById('init-btn');
+  btn.addEventListener('click', () => {
+    btn.textContent = '⬡ INITIALIZING...';
+    btn.style.borderColor = 'var(--green)';
+    btn.style.color = 'var(--green)';
+    setTimeout(() => {
+      btn.textContent = '⬡ SYSTEM ONLINE';
+      document.getElementById('domains').scrollIntoView({behavior:'smooth'});
+    }, 1400);
+  });
+}
+
+/* ── TERMINAL BLINK CURSOR ── */
+function initBlink() {
+  const badge = document.querySelector('.badge');
+  const cur = document.createElement('span');
+  cur.style.cssText = 'color:var(--green);animation:blink 1s step-end infinite;margin-left:2px';
+  cur.textContent = '_';
+  badge.appendChild(cur);
+  const s = document.createElement('style');
+  s.textContent = '@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}';
+  document.head.appendChild(s);
+}
+
+/* ── BOOT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  initCanvas();
+  initClock();
+  renderDomains();
+  initCounters();
+  initHeroCounters();
+  initParallax();
+  initCoords();
+  initBtn();
+  initBlink();
+});
+</script>
 </body>
 </html>
