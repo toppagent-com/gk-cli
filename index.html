@@ -1354,10 +1354,57 @@ const DOMAINS = [
     ]},
 ];
 
+/* ── CATEGORY MAPPING (tools.json → domain format) ── */
+const CATEGORY_META = {
+  tekst:     { icon:'✍️',  title:'AI Writing Tools',       color:'#00d4ff' },
+  bilde:     { icon:'🎨',  title:'AI Image Generators',    color:'#ff44aa' },
+  video:     { icon:'🎬',  title:'AI Video Generators',    color:'#ff6600' },
+  lyd:       { icon:'🎤',  title:'AI Voice & Music',       color:'#aa00ff' },
+  kode:      { icon:'💻',  title:'AI Coding Tools',        color:'#00ff88' },
+  web:       { icon:'🌐',  title:'AI Website Builders',    color:'#00ccff' },
+  seo:       { icon:'📈',  title:'AI SEO Tools',           color:'#00dd66' },
+  analyse:   { icon:'📊',  title:'AI Research & Analysis', color:'#44ddff' },
+  automasjon:{ icon:'🤖',  title:'AI Automation Tools',    color:'#ffcc00' },
+};
+
+/* ── LOAD TOOLS FROM tools.json (fallback to DOMAINS) ── */
+async function loadTools() {
+  let domainsToRender = DOMAINS;
+  try {
+    const res = await fetch('tools.json');
+    if (res.ok) {
+      const data = await res.json();
+      const tools = data.tools || data;
+      if (Array.isArray(tools) && tools.length > 0) {
+        const byCategory = {};
+        tools.forEach((t, i) => {
+          const cat = (t.category || 'analyse').toLowerCase();
+          if (!byCategory[cat]) byCategory[cat] = [];
+          byCategory[cat].push({ n: t.name, t: (t.desc || '').slice(0, 20) || 'TOOL' });
+        });
+        domainsToRender = Object.entries(byCategory).map(([cat, items], i) => {
+          const meta = CATEGORY_META[cat] || { icon:'🔧', title: cat, color:'#00d4ff' };
+          return {
+            id: i + 1,
+            icon: meta.icon,
+            title: meta.title,
+            color: meta.color,
+            tools: items,
+          };
+        });
+      }
+    }
+  } catch (e) {
+    /* fallback to hardcoded DOMAINS */
+  }
+  renderDomains(domainsToRender);
+}
+
 /* ── RENDER DOMAIN CARDS ── */
-function renderDomains() {
+function renderDomains(domains) {
   const grid = document.getElementById('domains-grid');
-  DOMAINS.forEach(d => {
+  grid.innerHTML = '';
+  (domains || DOMAINS).forEach(d => {
     const card = document.createElement('div');
     card.className = 'domain-card';
     card.style.setProperty('--dc', d.color);
@@ -1567,7 +1614,7 @@ function initBlink() {
 document.addEventListener('DOMContentLoaded', () => {
   initCanvas();
   initClock();
-  renderDomains();
+  loadTools();
   initCounters();
   initHeroCounters();
   initParallax();
