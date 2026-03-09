@@ -4,74 +4,76 @@
 
 This repository contains two related web products owned by **NorwegianSpark SA** (`Org no. 834 984 172`):
 
-1. **AI Super-Portal** (`index.html` + `tools.json`) — A Norwegian-language static affiliate site listing AI tools with copyable prompts, category filters, and search. Deployed to Netlify.
-2. **Banktopp** (`banktopp.htlm.txt`) — A full-featured React 19 + TypeScript + Tailwind single-file component for a Norwegian bank comparison site. Designed to be deployed via [v0.dev](https://v0.dev) → Vercel.
+1. **AI Super-Portal** (`index.html` + `tools.json`) — A static single-page site listing AI tools with searchable/filterable cards, copy-to-clipboard prompts, and affiliate links. Content is in Norwegian. Deployed to Netlify.
+2. **Banktopp** (`banktopp.htlm.txt`) — A full-featured React 19 + TypeScript + Tailwind single-file component for a Norwegian bank comparison site. Intended for deployment via [v0.dev](https://v0.dev) → Vercel.
 
 **Language**: Norwegian (Bokmål) for all user-facing copy. Code comments and variable names may be in English.
 
 ---
 
-## File Structure
+## Architecture
+
+- **No build system** — pure vanilla HTML, CSS, and JavaScript.
+- `index.html` is the entire application (markup, styles, and scripts are all inline).
+- `tools.json` is the data source; the page fetches it at runtime via `fetch('tools.json')`.
+- Fallback data is hardcoded in `index.html` in case `tools.json` fails to load.
+
+### File Structure
 
 ```
-├── index.html          # AI Super-Portal — main page (vanilla HTML/CSS/JS)
-├── tools.json          # AI tool data — single source of truth for all cards
-├── banktopp.htlm.txt   # Banktopp React/TS component (drag into v0.dev to deploy)
-├── images/             # Static image assets
-├── README.md           # End-user documentation
-├── CONTRIBUTING.md     # Contribution guidelines
-└── AGENTS.md           # This file
+index.html          # Full application (HTML + CSS + JS)
+tools.json          # AI tools data (array of tool objects)
+banktopp.htlm.txt   # Banktopp React/TS component (drag into v0.dev to deploy)
+images/             # Static image assets
+README.md           # Project documentation (Norwegian)
+CONTRIBUTING.md     # Contribution guidelines
+LICENSE             # License
+.github/            # Issue templates
+AGENTS.md           # This file
+```
+
+### Tool Object Schema (`tools.json`)
+
+Each tool entry follows this shape:
+
+```json
+{
+  "name": "string",
+  "category": "tekst | bilde | video | lyd | kode | web | seo | analyse | automasjon",
+  "desc": "string",
+  "prompt": "string",
+  "link": "string (URL or '#' placeholder)",
+  "commission": "string"
+}
 ```
 
 ---
 
-## AI Super-Portal (`index.html` + `tools.json`)
-
-### Tech Stack
-- Vanilla HTML5, CSS3, JavaScript (ES2020+)
-- No build step required
-- Fonts: `Outfit` (body), `JetBrains Mono` (code) via Google Fonts
-
-### Design Tokens
-| Token | Value |
-|---|---|
-| `--primary` | `#00d2ff` (cyan) |
-| `--secondary` | `#3a7bd5` (blue) |
-| `--accent` | `#a855f7` (purple) |
-| `--dark` | `#0a0e17` (background) |
-| `--card-bg` | `#131a2b` |
-
-### Data Schema (`tools.json`)
-Each tool object in the `tools` array:
-```json
-{
-  "name": "string — display name",
-  "category": "tekst | bilde | video | lyd | kode | web | seo | analyse | automasjon",
-  "desc": "string — short Norwegian description",
-  "prompt": "string — example prompt to copy (Norwegian or English)",
-  "link": "string — affiliate URL (use '#' as placeholder)",
-  "commission": "string — commission info, e.g. '30% Fast'"
-}
-```
-
-**To add a new tool**: append an object to `tools.json`. The page re-renders dynamically — no code change needed.
+## Development Environment
 
 ### Running Locally
+
+No dependencies to install. Serve the directory with any static file server:
+
 ```bash
 # Python 3
-python -m http.server 8080
+python3 -m http.server 8080
 
-# Node.js
-npx serve .
+# Node.js (npx)
+npx serve . -l 8080
 ```
-Open `http://localhost:8080`.
+
+Then open `http://localhost:8080`.
+
+**Important**: Opening `index.html` directly via `file://` will cause `fetch('tools.json')` to fail due to CORS restrictions. Always use a local HTTP server.
 
 ### Deployment
-Deployed to **Netlify** (static hosting). Pushing to `main` triggers an automatic deploy. No build command is needed — the publish directory is `/` (root).
 
-If a page returns 404 on Netlify, check:
-- The Netlify `_redirects` file or `netlify.toml` for SPA routing rules (not present by default — add if needed)
-- That the requested URL path matches an actual file
+The site is deployed on **Netlify** as a static site. No build command or output directory configuration is needed — Netlify serves the repo root directly.
+
+- Ensure `index.html` exists at the repo root.
+- No `netlify.toml` or `_redirects` file is currently present. If SPA-style routing or custom redirects are needed, create one.
+- If a page returns 404 on Netlify, verify the requested URL path matches an actual file in the repo.
 
 ---
 
@@ -104,38 +106,7 @@ Key fields: `id`, `slug`, `name`, `type` (`neobank | traditional | savings | bus
 ### Pages Implemented
 `Home`, `Banks`, `Category`, `Detail`, `Compare`, `Quiz`, `About`, `Advertise`, `Privacy`, `Terms`, `404`
 
----
-
-## Code Conventions
-
-- **No build step** for the AI Super-Portal — keep it zero-dependency
-- **Norwegian user-facing copy** — all text shown to users must be in Norwegian Bokmål
-- **Affiliate disclosures** — every page must include the disclaimer: *"Reklame · Denne siden inneholder affiliate-lenker"* as required by Norwegian marketing law (`markedsføringsloven`)
-- **Sponsored items first** — `is_sponsored: true` items must appear before non-sponsored items in all lists
-- **WCAG AA** — maintain accessible colour contrast ratios and ARIA attributes, especially for Banktopp
-- Do not add SVG noise or decorative animations that break `prefers-reduced-motion`
-
----
-
-## Testing
-
-### AI Super-Portal
-Manual browser testing is the primary method (no test framework):
-
-```bash
-python -m http.server 8080
-# Open http://localhost:8080
-```
-
-Verify:
-- Cards render from `tools.json`
-- Category filter buttons work
-- Search filters cards in real time
-- "Kopier prompt" button copies text and shows "Kopiert!" feedback
-- Fallback tools render if `tools.json` fails to load
-- Responsive layout at 375px, 768px, 1280px
-
-### Banktopp
+### Local Testing
 Since this is a single `.tsx` file intended for v0.dev, local testing requires a Vite + React project:
 
 ```bash
@@ -148,13 +119,54 @@ npm run dev
 
 ---
 
+## Code Guidelines
+
+- **Language**: UI text and content are in Norwegian. Use Norwegian for all user-facing strings.
+- **Single-file architecture**: All styles and scripts live inside `index.html`. Keep them there unless the project is migrated to a build system.
+- **Data changes**: To add, remove, or modify AI tools, edit `tools.json` only. Do not modify the `FALLBACK_TOOLS` array in `index.html` unless also updating `tools.json`.
+- **Categories**: Valid values are `tekst`, `bilde`, `video`, `lyd`, `kode`, `web`, `seo`, `analyse`, `automasjon`. Adding a new category requires adding a corresponding `.badge.<category>` CSS rule and a filter button in the HTML.
+- **Affiliate disclosures**: Every page must include the disclaimer banner (*"Reklame · Denne siden inneholder affiliate-lenker"*) as required by Norwegian marketing law (`markedsføringsloven`). Replace `"link": "#"` with actual affiliate URLs before going live.
+- **Sponsored items first**: `is_sponsored: true` items must appear before non-sponsored items in all lists.
+- **No build step**: Do not introduce bundlers, transpilers, or package managers without explicit approval.
+- **Accessibility**: Use semantic HTML elements, maintain keyboard navigability, ensure sufficient color contrast (WCAG AA), and respect `prefers-reduced-motion`.
+
+---
+
+## Testing
+
+### AI Super-Portal
+Manual browser testing is the primary method (no test framework). Verify:
+
+1. The page loads without a 404 or blank screen.
+2. Tool cards render from `tools.json`.
+3. Category filter buttons work (click a category; verify cards filter).
+4. Search input filters cards by name/description/prompt.
+5. "Kopier prompt" buttons copy text and show "Kopiert!" feedback.
+6. Fallback tools render if `tools.json` fails to load.
+7. Responsive layout works at 375 px, 768 px, and 1280 px.
+
+### Automated Testing
+There are no automated tests. If adding tests, prefer a lightweight approach (a simple Node.js script or an HTML-based test page) since the project has no build tooling or package manager.
+
+---
+
 ## Cursor Cloud Specific Instructions
 
-- The local dev server for the AI Super-Portal is `python -m http.server 8080`; it starts instantly with no dependencies to install
-- When testing UI changes to `index.html`, use the `computerUse` subagent to open `http://localhost:8080` in Chrome
-- Do **not** run `npm install` at the workspace root — there is no `package.json`; the AI Super-Portal is dependency-free
-- When editing `tools.json`, validate that the JSON is well-formed before committing (`python -c "import json; json.load(open('tools.json'))"`)
-- To verify Netlify deployment: check the branch was pushed to `main` and wait ~60 seconds for the deploy to propagate
+### Running the Dev Server
+
+```bash
+cd /workspace && python3 -m http.server 8080 &
+```
+
+### Manual Testing
+
+After starting the dev server, use the `computerUse` subagent to open `http://localhost:8080` in Chrome and verify the checklist above.
+
+### Additional Notes
+
+- Do **not** run `npm install` at the workspace root — there is no `package.json`; the AI Super-Portal is dependency-free.
+- When editing `tools.json`, validate the JSON before committing: `python3 -c "import json; json.load(open('tools.json'))"`.
+- To verify Netlify deployment: push to `main` and wait ~60 seconds for the deploy to propagate.
 
 ---
 
